@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@id/title"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:textSize="50sp"
+        android:text="GetBetter"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        />
+
+    <Button android:id="@+id/add_button"
+        android:onClick="onClick"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:text="추가"
+        android:textSize="27sp"
+        android:layout_below="@id/title"
+        android:layout_alignLeft="@id/title"
+        android:layout_marginTop="170dp"
+        />
+
+    <Button android:id="@+id/load_button"
+        android:onClick="onClick"
+        android:layout_width="135dp"
+        android:layout_height="100dp"
+        android:text="불러오기"
+        android:textSize="27sp"
+        android:layout_below="@id/title"
+        android:layout_alignRight="@id/title"
+        android:layout_marginTop="170dp"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView android:id="@+id/game2result_image"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:src="@drawable/goodjob"/>
+
+    <Button android:id="@+id/gmae2_back_button"
+        android:onClick="onClick"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="돌아가기"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:layout_below="@id/gmae2_result_explain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+    <Button android:id="@+id/gmae2_result_explain"
+        android:onClick="onClick"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="결과보기"
+        android:textSize="30sp"
+        android:textStyle="normal"
+        android:layout_below="@id/game2result_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        />
+</RelativeLayout>
