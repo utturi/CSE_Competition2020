@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class ChangeActivity extends AppCompatActivity {
+    String user_id;
     private TimerTask second;
     private TextView timer_text;
     private final Handler handler = new Handler(); //핸들러를 통해 초마다 text값 변경 3 -> 2 -> 1
@@ -38,6 +39,7 @@ public class ChangeActivity extends AppCompatActivity {
             public void run() {
                 if(timer_sec == 0){ //0초가 되면 game2Activity로 넘어감
                     Intent game2 = new Intent(getApplicationContext(), Game2Activity.class);
+                    game2.putExtra("id",user_id);
                     startActivity(game2);
                 }
                 else timer_text.setText(timer_sec + "초");
@@ -49,6 +51,9 @@ public class ChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change);
+        Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
+        user_id = intent.getExtras().getString("id");
+
         //Toast.makeText(getApplicationContext(), "This is changeActivity", Toast.LENGTH_LONG).show();
         testStart(); //위에서 만들어놓은 실시간으로 text값 변경하는 함수 호출
     }

@@ -7,7 +7,7 @@
     <ImageView android:id="@+id/game2iamge_view"
         android:layout_below="@+id/game2count"
         android:layout_width="match_parent"
-        android:layout_height="380dp" />
+        android:layout_height="420dp" />
 
     <TextView android:id="@+id/game2answer"
         android:layout_width="match_parent"
@@ -15,18 +15,10 @@
         android:layout_below="@+id/game2iamge_view"
         android:layout_height="100dp"
         android:text="개구리"
-        android:textSize="60dp" />
+        android:textSize="60dp"
+        android:layout_marginTop="35dp"/>
 
-    <Button
-        android:id="@+id/next_button"
-        android:layout_width="135dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/game2answer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:onClick="onClick"
-        android:text="다음"
-        android:textSize="27sp" />
+
 
     <TextView
         android:id="@+id/game2count"

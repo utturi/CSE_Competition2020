@@ -12,15 +12,25 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.cse_competition2020.db.DBHelper;
+import com.example.cse_competition2020.db.DBHelper1;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 /*
 2020.8.18 영훈
 버튼 누르면 onClick 실행돼서 각각 다이얼로그 띄우게 했음.
@@ -38,14 +48,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
         int CameraPermission=ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int VoicePermission=ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
         if(CameraPermission==PackageManager.PERMISSION_GRANTED&&VoicePermission==PackageManager.PERMISSION_GRANTED);
         else
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO},0);
-
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //권한 체크 응답 함수
         if (grantResults.length > 0) { //권한 허가
@@ -54,6 +63,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
     @Override
     public void onClick(final View V){ //버튼 이벤트 처리
         switch (V.getId()){
@@ -62,9 +72,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 ad.setMessage("아이 이름을 입력하세요.");
                 final EditText e1 = new EditText(StartActivity.this);
                 ad.setView(e1);
-
                 ad.setPositiveButton("확인", new DialogInterface.OnClickListener() { //확인 버튼을 누른 경우
-                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         name = e1.getText().toString(); //입력한 아이 이름이 저장됨
@@ -73,10 +81,37 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         DatePickerDialog dialog2 = new DatePickerDialog(StartActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-                                String msg = String.format("%s의 생일은 %d 년 %d 월 %d 일",name, year, month+1, date); //선택한 날짜 확인
-                                Toast.makeText(StartActivity.this, msg, Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(V.getContext(),MainActivity.class); //MainActivity 실행
-                                startActivity(intent);
+                                //Toast.makeText(StartActivity.this, "년도" + year, Toast.LENGTH_SHORT).show();
+                                //입력한 아이랑 나이를 table에 저장
+                                com.example.cse_competition2020.db.DBHelper helper = new com.example.cse_competition2020.db.DBHelper(getApplicationContext());
+                                SQLiteDatabase db = helper.getWritableDatabase();
+                                String sql;
+                                // UUID uuid = UUID.randomUUID();
+                                //겹치지않는 아이디 값 설정
+                                String convertPw = UUID.randomUUID().toString().replace("-", "");
+                                String age;
+                                if(month < 10) {
+                                    if(date < 10){
+                                        age = String.format((year%100) + ".0" + (month+1) + ".0" + date);
+                                    }
+                                    else{
+                                        age = String.format((year%100) + ".0" + (month+1) + "." + date);
+                                    }
+                                }
+                                else{
+                                    if(date < 10){
+                                        age = String.format((year%100) + "." + (month+1) + ".0" + date);
+                                    }
+                                    else{
+                                        age = String.format((year%100) + "." + (month+1) + "." + date);
+                                    }
+                                }
+                                sql = String.format("INSERT INTO T0 VALUES ('" + convertPw + "','" + name + "','" + age + "');");
+                                db.execSQL(sql);
+                                db.close();
+                                Intent start_intent = new Intent(getApplicationContext(), MainActivity.class); //MainActivity 실행
+                                start_intent.putExtra("id", convertPw); //해당 고유번호(id)를 가진 상태로 시작 화면으로 전환
+                                startActivity(start_intent);
                             }
                         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
                         dialog2.getDatePicker().setMaxDate(new Date().getTime());    //입력한 날짜 이후로 클릭 안되게 옵션
@@ -92,36 +127,72 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 });
                 ad.show();
                 break;
+            case R.id.remove_button: //삭제 버튼 처리
             case R.id.load_button: //불러오기 버튼에 대한 이벤트 처리
-                final String[] data=new String[]{"이영훈","임대호","김의현"};
-                final int[] selectedItem={0};
-                AlertDialog.Builder dialog=new AlertDialog.Builder(StartActivity.this);
-                dialog  .setTitle("불러올 아이를 고르세요")
-                        .setSingleChoiceItems(data, 0, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                selectedItem[0]=which;
-                            }
-                        })
-                        .setPositiveButton("불러오기", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(StartActivity.this
-                                        , data[selectedItem[0]]
-                                        , Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(V.getContext(),MainActivity.class); //MainActivity 실행
-                                startActivity(intent);
-                            }
-                        })
-                        .setNeutralButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                dialog.create();
-                dialog.show();
+                final List<String> list = new ArrayList<>();
+                final List<String> id_list = new ArrayList<>();
+                AlertDialog.Builder builder = new AlertDialog.Builder(StartActivity.this);
+                DBHelper helper = new DBHelper(getApplicationContext());
+                final SQLiteDatabase db = helper.getWritableDatabase();
+                DBHelper1 helper1 = new DBHelper1(getApplicationContext());
+                final SQLiteDatabase db1 = helper1.getWritableDatabase();
+                String sql = "SELECT * FROM T0;";
+                Cursor cursor = db.rawQuery(sql, null);
+                if (cursor.getCount() > 0) {
+                    while (cursor.moveToNext()) {
+                        id_list.add(String.format(cursor.getString(0)));
+                        list.add(String.format("%s"  + "(%s)", cursor.getString(1),cursor.getString(2)));
+                    }
+                }
+                //cursor.close();
+                //불러올 데이터가 없다면
+                if(list.isEmpty()){
+                    Toast.makeText(StartActivity.this, "불러올 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    final CharSequence[] data = list.toArray(new CharSequence[list.size()]);
+                    final int[] check = new int[1];
+                    builder.setTitle("아이 선택")
+                            .setSingleChoiceItems(data, 0,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            check[0] = i;
+                                            //Toast.makeText(StartActivity.this, ""+check[0], Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if(V.getId() == R.id.load_button){
+                                        Intent start_intent = new Intent(getApplicationContext(), MainActivity.class); //MainActivity 실행
+                                        start_intent.putExtra("id", id_list.get(check[0])); //해당 고유번호(id)를 가진 상태로 시작 화면으로 전환
+                                        startActivity(start_intent);
+                                    }
+                                    else if(V.getId() == R.id.remove_button){ //삭제 버튼일경우
+                                        db.execSQL("DELETE FROM T0 WHERE id = '" + id_list.get(check[0]) + "'");
+                                        db1.execSQL("DELETE FROM T1 WHERE id = '" + id_list.get(check[0]) + "'");
+                                        //Toast.makeText(StartActivity.this, ""+sel_id + "이 삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            })
+                            .setNeutralButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+                //db.close();
                 break;
         }
     }
 
+    //핸드폰 back버튼을 누르면 앱 종료
+    @Override
+    public void onBackPressed() {
+        ActivityCompat.finishAffinity(this);
+        System.exit(0);
+    }
 }

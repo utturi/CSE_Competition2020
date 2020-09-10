@@ -22,6 +22,7 @@ import com.example.cse_competition2020.R;
 import java.util.List;
 
 public class Game2Activity extends AppCompatActivity {
+    String user_id;
     public static final int data[]={ //이미지 20개
             R.drawable.banana, R.drawable.bus, R.drawable.candy, R.drawable.car, R.drawable.cheese,
             R.drawable.chick, R.drawable.clock, R.drawable.cucumber, R.drawable.dog, R.drawable.elephant,
@@ -57,6 +58,8 @@ public class Game2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game2);
         //Toast.makeText(getApplicationContext(), "This is Game2Activity", Toast.LENGTH_LONG).show();
+        Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
+        user_id = intent.getExtras().getString("id");
 
         //음성권한을 허용 안했으면 앱을 재실행 해야함.
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -85,42 +88,6 @@ public class Game2Activity extends AppCompatActivity {
         select[select_num++] = name[index-1]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
         used_data[index] = 99; //해당 이미지는 사용을 했으므로 체크를함
         mRecognizer.startListening(SttIntent); //음성인식 사용할라면 이줄 그대로 쓰면됨
-
-        Button button = (Button)findViewById(R.id.next_button); //다음 버튼에 대한 설정
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (count == 6) { //5문제를 진행 후 <다음>버튼을 누르면 2초뒤에 결과창으로 넘어감
-                    Toast.makeText(getApplicationContext(), "잠시후 결과 창으로 넘어갑니다...", Toast.LENGTH_LONG).show();
-                    new Handler().postDelayed(new Runnable() { //2초정도 기다린뒤에 결과창으로 넘어가게 하기위해서
-                        @Override
-                        public void run() { //2초뒤 실행됨
-                            //정답 체크에 필요한 result, select배열 2개를 Game2ResultActivity로 넘김
-                            Intent last = new Intent(getApplicationContext(), Game2ResultActivity.class);
-                            last.putExtra("result", result);
-                            last.putExtra("select", select);
-                            startActivity(last);
-                        }
-                    }, 2000);
-                } else {
-                    while (true) { //겹치지 않는 랜덤값 설정
-                        tmp = (int) (Math.random() * 20 + 1);
-                        if (used_data[tmp] != 99) {
-                            index = tmp - 1;
-                            used_data[tmp] = 99;
-                            break;
-                        }
-                    }
-                    //업데이트됨 그림, 정답, 진행 된 문제수를 출력
-                    change_image.setImageResource(data[index]);
-                    change_count.setText(count + "/5");
-                    change_answer.setText(name[index]);
-                    select[select_num++] = name[index]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
-                    count++;
-                    mRecognizer.startListening(SttIntent); //버튼을 클릭할때마다 음성인식 실행 -> 정답 받기
-                }
-            }
-        });
     }
 
     //음성인식 데이터 설정 값
@@ -147,12 +114,42 @@ public class Game2Activity extends AppCompatActivity {
 
         @Override
         public void onEndOfSpeech() { //아이가 말을하여 값을 받으면 다음버튼을 누르도록 토스트로 알려줌
-            Toast.makeText(Game2Activity.this, "다음을 누르면 다음문제로 넘어갑니다...", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(Game2Activity.this, "다음을 누르면 다음문제로 넘어갑니다...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onError(int i) {
-            Toast.makeText(Game2Activity.this, "천천히 다시 말해 주세요...", Toast.LENGTH_SHORT).show();
+            if (count == 6) { //5문제를 진행 후 <다음>버튼을 누르면 2초뒤에 결과창으로 넘어감
+                Toast.makeText(getApplicationContext(), "잠시후 결과 창으로 넘어갑니다...", Toast.LENGTH_LONG).show();
+                new Handler().postDelayed(new Runnable() { //2초정도 기다린뒤에 결과창으로 넘어가게 하기위해서
+                    @Override
+                    public void run() { //2초뒤 실행됨
+                        //정답 체크에 필요한 result, select배열 2개를 Game2ResultActivity로 넘김
+                        Intent last = new Intent(getApplicationContext(), Game2ResultActivity.class);
+                        last.putExtra("result", result);
+                        last.putExtra("select", select);
+                        last.putExtra("id", user_id);
+                        startActivity(last);
+                    }
+                }, 2000);
+            } else {
+                while (true) { //겹치지 않는 랜덤값 설정
+                    tmp = (int) (Math.random() * 20 + 1);
+                    if (used_data[tmp] != 99) {
+                        index = tmp - 1;
+                        used_data[tmp] = 99;
+                        break;
+                    }
+                }
+                //업데이트됨 그림, 정답, 진행 된 문제수를 출력
+                change_image.setImageResource(data[index]);
+                change_count.setText(count + "/5");
+                change_answer.setText(name[index]);
+                select[select_num++] = name[index]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
+                count++;
+                mRecognizer.startListening(SttIntent); //버튼을 클릭할때마다 음성인식 실행 -> 정답 받기
+            }
+            //Toast.makeText(Game2Activity.this, "천천히 다시 말해 주세요...", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -161,6 +158,36 @@ public class Game2Activity extends AppCompatActivity {
             String[] arry = result_arr.toArray(new String[result_arr.size()]);
             //Toast.makeText(game2Activity.this, arry[0], Toast.LENGTH_SHORT).show();
             result[count-2] = arry[0]; //음성인식으로 아이가 말한 것들을 정답란에 넣음 -> 판단은 Game2ResultActivity에서 판단
+            if (count == 6) { //5문제를 진행 후 <다음>버튼을 누르면 2초뒤에 결과창으로 넘어감
+                Toast.makeText(getApplicationContext(), "잠시후 결과 창으로 넘어갑니다...", Toast.LENGTH_LONG).show();
+                new Handler().postDelayed(new Runnable() { //2초정도 기다린뒤에 결과창으로 넘어가게 하기위해서
+                    @Override
+                    public void run() { //2초뒤 실행됨
+                        //정답 체크에 필요한 result, select배열 2개를 Game2ResultActivity로 넘김
+                        Intent last = new Intent(getApplicationContext(), Game2ResultActivity.class);
+                        last.putExtra("result", result);
+                        last.putExtra("select", select);
+                        last.putExtra("id",user_id);
+                        startActivity(last);
+                    }
+                }, 2000);
+            } else {
+                while (true) { //겹치지 않는 랜덤값 설정
+                    tmp = (int) (Math.random() * 20 + 1);
+                    if (used_data[tmp] != 99) {
+                        index = tmp - 1;
+                        used_data[tmp] = 99;
+                        break;
+                    }
+                }
+                //업데이트됨 그림, 정답, 진행 된 문제수를 출력
+                change_image.setImageResource(data[index]);
+                change_count.setText(count + "/5");
+                change_answer.setText(name[index]);
+                select[select_num++] = name[index]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
+                count++;
+                mRecognizer.startListening(SttIntent); //버튼을 클릭할때마다 음성인식 실행 -> 정답 받기
+            }
         }
 
         @Override

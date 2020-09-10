@@ -5,13 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.cse_competition2020.GameSelectActivity;
 import com.example.cse_competition2020.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class Game2ResultActivity extends AppCompatActivity {
+    String user_id;
     int check_num = 0; //몇개 정답인지 갯수 파악
     String []result; //아이가 말한 것을 저장한 배열, 수신된 값
     String []select; //랜덤으로 나온 그림에 대한 정답, 수신된 값
@@ -23,6 +30,7 @@ public class Game2ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game2_result);
         //Toast.makeText(getApplicationContext(), "This is Game2ResultActivity", Toast.LENGTH_LONG).show();
         Intent intent = getIntent(); //gmae2Activity에서 결과값 수신
+        user_id = intent.getExtras().getString("id");
         result = intent.getExtras().getStringArray("result"); //아이가 말한 것을 저장한 배열
         //Toast.makeText(getApplicationContext(), result[0] + " " + result[1] + " " + result[2] + " " + result[3] + " " + result[4], Toast.LENGTH_LONG).show();
         select = intent.getExtras().getStringArray("select"); //랜덤으로 나온 그림에 대한 정답
@@ -42,6 +50,7 @@ public class Game2ResultActivity extends AppCompatActivity {
         }
     }
 
+    int check=-1;
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){
             case R.id.gmae2_result_explain: //<결과보기> 버튼 눌렀을 경우
@@ -52,13 +61,32 @@ public class Game2ResultActivity extends AppCompatActivity {
                 result_dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        check=100;
+                        com.example.cse_competition2020.db.DBHelper1 helper = new com.example.cse_competition2020.db.DBHelper1(getApplicationContext());
+                        SQLiteDatabase db = helper.getWritableDatabase();
+                        Date currentTime = Calendar.getInstance().getTime();
+                        String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+                        String sql = String.format("INSERT INTO T1 VALUES ('" + user_id + "','" + date_text + "'," + check_num + ");");
+                        //id, 날짜, 점수를 T1에 저장
+                        db.execSQL(sql);
+                        //Toast.makeText(Game2ResultActivity.this,  sql, Toast.LENGTH_SHORT).show();
                     }
                 });
                 result_dlg.show();
                 break;
             case R.id.gmae2_back_button: //되돌아가기 버튼 -> GameSelectActivity로 넘어감
+                if(check == -1){ //결과보기 버튼 안누르고 바로 되돌아가기 버튼을 누를경우
+                    com.example.cse_competition2020.db.DBHelper1 helper = new com.example.cse_competition2020.db.DBHelper1(getApplicationContext());
+                    SQLiteDatabase db = helper.getWritableDatabase();
+                    Date currentTime = Calendar.getInstance().getTime();
+                    String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+                    String sql = String.format("INSERT INTO T1 VALUES ('" + user_id + "','" + date_text + "'," + check_num + ");");
+                    //id, 날짜, 점수를 T1에 저장
+                    db.execSQL(sql);
+                    //Toast.makeText(Game2ResultActivity.this,  sql, Toast.LENGTH_SHORT).show();
+                }
                 Intent record = new Intent(V.getContext(), GameSelectActivity.class);
+                record.putExtra("id",user_id);
                 startActivity(record);
                 break;
         }
@@ -67,6 +95,7 @@ public class Game2ResultActivity extends AppCompatActivity {
     @Override //사용자가 되돌아가기 버튼이외에 핸드폰 back버튼을 눌렀을때 GameSelectActivity로 넘어감
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
+        back.putExtra("id",user_id);
         startActivity(back);
     }
 }

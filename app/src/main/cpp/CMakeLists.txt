@@ -5,7 +5,7 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-set(pathPROJECT C:/Users/eogh0/AndroidStudioProjects/CSE_Competition2020) # 수정필요
+set(pathPROJECT C:/Users/pio08/AndroidStudioProjects/CSE_Competition2020V1) # 수정필요
 set(pathOPENCV ${pathPROJECT}/sdk) # 수정 필요
 set(pathLIBOPENCV_JAVA ${pathOPENCV}/native/libs/${ANDROID_ABI}/libopencv_java4.so)
 
