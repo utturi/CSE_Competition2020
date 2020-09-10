@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.cse_competition2020.ChangeActivity;
 import com.example.cse_competition2020.GameSelectActivity;
 import com.example.cse_competition2020.R;
 
@@ -19,6 +20,7 @@ public class VoiceGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_voice_game);
         Intent intent = getIntent(); //GameSelectActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        //intent.getStringExtra("id");
         //Toast.makeText(getApplicationContext(), "This is VoiceGameActivity", Toast.LENGTH_LONG).show();
     }
 
@@ -41,6 +43,7 @@ public class VoiceGameActivity extends AppCompatActivity {
                 break;
             case R.id.game2start_button: //게임2의 <게임 시작> 버튼에 대한 이벤트 처리
                 Intent game2 = new Intent(V.getContext(), ChangeActivity.class);
+                game2.putExtra("gameNum",2);
                 game2.putExtra("id",user_id);
                 startActivity(game2); //changeActivity로 넘어감, 3->2->1로 변화는 과정 출력하는 엑티비티
                 break;

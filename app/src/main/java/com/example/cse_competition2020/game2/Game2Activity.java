@@ -6,23 +6,27 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cse_competition2020.GameResultActivity;
 import com.example.cse_competition2020.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Game2Activity extends AppCompatActivity {
-    String user_id;
     public static final int data[]={ //이미지 20개
             R.drawable.banana, R.drawable.bus, R.drawable.candy, R.drawable.car, R.drawable.cheese,
             R.drawable.chick, R.drawable.clock, R.drawable.cucumber, R.drawable.dog, R.drawable.elephant,
@@ -36,8 +40,13 @@ public class Game2Activity extends AppCompatActivity {
             "토끼", "다람쥐", "호랑이", "토마토", "우산"
     };
 
+    String user_id;
     String []result = new String[5]; //결과에 대한 값을 Game2ResultActivity에 전달
     String []select = new String[5]; //랜덤으로 선택된 값이 무엇인지 -> Game2ResultActivity에 전달, result배열과 비교할 때 사용
+    String yes = ""; //정답 목록
+    String no= ""; //오답 목록
+    String gameResult=""; //결과 엑티비티에 보낼 메세지
+    int check_num=0; //정답 개수
     int select_num = 0; //select배열의 어느 위치인지 나타내는 변수
 
     //여기부터
@@ -124,14 +133,17 @@ public class Game2Activity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() { //2초정도 기다린뒤에 결과창으로 넘어가게 하기위해서
                     @Override
                     public void run() { //2초뒤 실행됨
-                        //정답 체크에 필요한 result, select배열 2개를 Game2ResultActivity로 넘김
-                        Intent last = new Intent(getApplicationContext(), Game2ResultActivity.class);
-                        last.putExtra("result", result);
-                        last.putExtra("select", select);
-                        last.putExtra("id", user_id);
+                        //정답을 체크하고 DB에 결과를 넣은 뒤, 메세지를 세팅하고 결과 엑티비티 호출
+                        resultProcess();
+                        Intent last = new Intent(getApplicationContext(), GameResultActivity.class);
+                        gameResult="총 5문제 중에서 "+check_num+"개를 맞추었습니다.\n"+
+                                "맞은 문제 : "+yes+"\n"+
+                                "틀린 문제 : "+no+"\n";
+                        last.putExtra("gameResult", gameResult);
+                        last.putExtra("id",user_id);
                         startActivity(last);
                     }
-                }, 2000);
+                }, 1000);
             } else {
                 while (true) { //겹치지 않는 랜덤값 설정
                     tmp = (int) (Math.random() * 20 + 1);
@@ -163,14 +175,17 @@ public class Game2Activity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() { //2초정도 기다린뒤에 결과창으로 넘어가게 하기위해서
                     @Override
                     public void run() { //2초뒤 실행됨
-                        //정답 체크에 필요한 result, select배열 2개를 Game2ResultActivity로 넘김
-                        Intent last = new Intent(getApplicationContext(), Game2ResultActivity.class);
-                        last.putExtra("result", result);
-                        last.putExtra("select", select);
+                        //정답을 체크하고 DB에 결과를 넣은 뒤, 메세지를 세팅하고 결과 엑티비티 호출
+                        resultProcess();
+                        Intent last = new Intent(getApplicationContext(), GameResultActivity.class);
+                        gameResult="총 5문제 중에서 "+check_num+"개를 맞추었습니다.\n"+
+                                "맞은 문제 : "+yes+"\n"+
+                                "틀린 문제 : "+no+"\n";
+                        last.putExtra("gameResult", gameResult);
                         last.putExtra("id",user_id);
                         startActivity(last);
                     }
-                }, 2000);
+                }, 1000);
             } else {
                 while (true) { //겹치지 않는 랜덤값 설정
                     tmp = (int) (Math.random() * 20 + 1);
@@ -190,6 +205,29 @@ public class Game2Activity extends AppCompatActivity {
             }
         }
 
+        private void resultProcess(){ //게임 결과를 처리하는 함수
+            for(int i=0; i<5; i++){ //정답, 오답, 정답 개수를 처리
+                if(result[i] != null && result[i].equals(select[i])) {
+                    yes += select[i];
+                    yes += " ";
+                    check_num++;
+                }
+                else {
+                    no += select[i]; //틀릴 경우 0을 저장
+                    no += " ";
+                }
+            }
+
+            //db에 결과를 저장
+            com.example.cse_competition2020.db.DBHelper1 helper = new com.example.cse_competition2020.db.DBHelper1(getApplicationContext());
+            SQLiteDatabase db = helper.getWritableDatabase();
+            Date currentTime = Calendar.getInstance().getTime();
+            String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+            String sql = String.format("INSERT INTO T1 VALUES ('" + user_id + "','" + date_text + "'," + check_num + ");");
+            //id, 날짜, 점수를 T1에 저장
+            db.execSQL(sql);
+        }
+
         @Override
         public void onPartialResults(Bundle bundle) {
 
@@ -200,4 +238,7 @@ public class Game2Activity extends AppCompatActivity {
 
         }
     };
+    @Override
+    public void onBackPressed() { //back 버튼 눌러도 이전으로 돌아갈 수 없음
+    }
 }
