@@ -6,15 +6,26 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
-    <uses-feature android:name="android.hardware.camera.front.autofocus"  android:required="false"/>
-    <supports-screens android:resizeable="true"
-        android:smallScreens="true"
-        android:normalScreens="true"
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.front.autofocus"
+        android:required="false" />
+
+    <supports-screens
+        android:anyDensity="true"
         android:largeScreens="true"
-        android:anyDensity="true" />
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +34,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".record.CustomMarkerView0"></activity>
         <!-- 색깔이 검은색으로 바뀜 -->
         <activity android:name=".game1.EyeGameSetActivity" />
         <activity android:name=".MainActivity" />
@@ -33,9 +45,10 @@
         <activity android:name=".record.RecordActivity" />
         <activity android:name=".GameSelectActivity" />
         <activity android:name=".game3.FaceGameActivity" />
-        <activity android:name=".game1.EyeGameStartActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"/>
+        <activity
+            android:name=".game1.EyeGameStartActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
