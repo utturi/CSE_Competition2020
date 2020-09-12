@@ -1,10 +1,10 @@
 package com.example.cse_competition2020;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cse_competition2020.record.RecordActivity;
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         user_id = intent.getExtras().getString("id");
         //Toast.makeText(getApplicationContext(), "" + user_id, Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){

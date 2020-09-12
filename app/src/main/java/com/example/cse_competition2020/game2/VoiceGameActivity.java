@@ -1,12 +1,12 @@
 package com.example.cse_competition2020.game2;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cse_competition2020.ChangeActivity;
 import com.example.cse_competition2020.GameSelectActivity;
@@ -17,7 +17,7 @@ public class VoiceGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voice_game);
+        setContentView(R.layout.activity_voice_game_set);
         Intent intent = getIntent(); //GameSelectActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
         //intent.getStringExtra("id");

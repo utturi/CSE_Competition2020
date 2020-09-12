@@ -1,26 +1,22 @@
 package com.example.cse_competition2020;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class GameResultActivity extends AppCompatActivity {
     String user_id;
     String gameResult;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_result);
+
         Intent intent = getIntent(); //각 게임에서 결과값 수신
         user_id = intent.getExtras().getString("id");
         gameResult = intent.getExtras().getString("gameResult");
@@ -44,6 +40,7 @@ public class GameResultActivity extends AppCompatActivity {
     }
 
     int check=-1;
+
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){
             case R.id.gmae_result_explain: //<결과보기> 버튼 눌렀을 경우
@@ -85,7 +82,8 @@ public class GameResultActivity extends AppCompatActivity {
         }
     }
 
-    @Override //사용자가 되돌아가기 버튼이외에 핸드폰 back버튼을 눌렀을때 GameSelectActivity로 넘어감
+    //사용자가 되돌아가기 버튼이외에 핸드폰 back버튼을 눌렀을때 GameSelectActivity로 넘어감
+    @Override
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
         back.putExtra("id",user_id);

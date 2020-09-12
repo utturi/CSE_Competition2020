@@ -1,28 +1,16 @@
 package com.example.cse_competition2020;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.cse_competition2020.GameSelectActivity;
-import com.example.cse_competition2020.R;
-import com.example.cse_competition2020.db.DBHelper2;
-import com.example.cse_competition2020.game1.EyeGameSetActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cse_competition2020.game1.EyeGameStartActivity;
 import com.example.cse_competition2020.game2.Game2Activity;
-import com.example.cse_competition2020.game3.FaceGameActivity;
+import com.example.cse_competition2020.game3.FaceGameSetActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -119,7 +107,7 @@ public class ChangeActivity extends AppCompatActivity {
                             gameStart = new Intent(getApplicationContext(), Game2Activity.class);
                             break;
                         case 3:
-                            gameStart = new Intent(getApplicationContext(), FaceGameActivity.class);
+                            gameStart = new Intent(getApplicationContext(), FaceGameSetActivity.class);
                             break;
                     }
                     gameStart.putExtra("id",user_id);

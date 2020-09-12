@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CSE_Competition2020</string>
+    <string name="emotion_name">Emotion</string>
 </resources>

@@ -1,14 +1,14 @@
 package com.example.cse_competition2020;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.cse_competition2020.game1.EyeGameSetActivity;
 import com.example.cse_competition2020.game2.VoiceGameActivity;
-import com.example.cse_competition2020.game3.FaceGameActivity;
+import com.example.cse_competition2020.game3.FaceGameSetActivity;
 
 /*
 2020.08.18 영훈
@@ -41,7 +41,7 @@ public class GameSelectActivity extends AppCompatActivity implements View.OnClic
                 startActivity(voice);
                 break;
             case R.id.facegame_button: //표정 따라하기 게임 실행 (FaceGameActivity 실행)
-                Intent face = new Intent(V.getContext(),FaceGameActivity.class);
+                Intent face = new Intent(V.getContext(), FaceGameSetActivity.class);
                 face.putExtra("id", user_id);
                 startActivity(face);
                 break;

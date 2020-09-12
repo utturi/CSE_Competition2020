@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <TextView android:id="@id/title"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:textSize="50sp"
+        android:text="표정 따라하기"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp" />
+
+    <Button android:id="@+id/game3guide_button"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="게임 설명"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="300dp" />
+
+    <Button android:id="@+id/game3start_button"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:text="게임 시작"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@id/game3guide_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+</RelativeLayout>

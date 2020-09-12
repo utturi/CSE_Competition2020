@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp">
+
+    <Button android:id="@+id/happy_button"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="기쁨"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp" />
+
+    <Button android:id="@+id/sad_button"
+    android:layout_width="220dp"
+    android:layout_height="100dp"
+    android:text="슬픔"
+    android:textSize="30sp"
+    android:textStyle="bold"
+    android:layout_below="@id/happy_button"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="30dp" />
+
+    <Button android:id="@+id/surprised_button"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:text="놀람"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@id/sad_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <Button android:id="@+id/angry_button"
+        android:layout_width="220dp"
+        android:layout_height="100dp"
+        android:text="화남"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_below="@id/surprised_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+</RelativeLayout>

@@ -1,13 +1,7 @@
 package com.example.cse_competition2020.game1;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
@@ -20,9 +14,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cse_competition2020.ChangeActivity;
 import com.example.cse_competition2020.GameSelectActivity;
 import com.example.cse_competition2020.R;
-import com.example.cse_competition2020.ChangeActivity;
 
 import org.opencv.android.Utils;
 import org.opencv.core.Mat;
@@ -31,8 +30,6 @@ import org.opencv.core.Rect;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
-
-import static org.opencv.imgproc.Imgproc.rectangle;
 
 public class EyeGameSetActivity extends AppCompatActivity {
     private static final String TAG = "EyeGameSetActivity";
@@ -44,10 +41,11 @@ public class EyeGameSetActivity extends AppCompatActivity {
     private String path;
     public Mat matInput, matOutput, subFace;
     protected MatOfRect eyes = new MatOfRect();
-    private int[] eye_1=new int[4];
-    private int[] eye_2=new int[4];
+    private int[] eye_1 = new int[4];
+    private int[] eye_2 = new int[4];
     private CascadeClassifier cas_face = new CascadeClassifier();
     private CascadeClassifier cas_eye = new CascadeClassifier();
+
     // OpenCV 네이티브 라이브러리와 C++코드로 빌드된 라이브러리를 읽음(CMakeList.txt add_library and target 참조)
     static {
         System.loadLibrary("native-lib");
@@ -60,26 +58,17 @@ public class EyeGameSetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_eye_game_set);
-
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         user_id = intent.getExtras().getString("id"); //user id를 받아서 저장
-        image = (ImageView)findViewById(R.id.imageViewInput);
-        imageGuide = (ImageView)findViewById(R.id.imageGuide);
+        image = (ImageView) findViewById(R.id.imageViewInput);
+        imageGuide = (ImageView) findViewById(R.id.imageGuide);
 
         // 사진 등록 이미지
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gallery();
-
-                /*// 등록된 사진이 제대로 인식되지 않았을 경우
-                if(checkImage() == -1) {
-                    startActivity(new Intent(getApplication(), EyeGameSetActivity.class));
-                    //Intent eye = new Intent(V.getContext(), EyeGameSetActivity.class);
-                    //startActivity(eye);
-                }*/
             }
         });
 
@@ -102,27 +91,16 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 dlg.show();
             }
         });
-
-        /*if (!hasPermissions(PERMISSIONS)) { //퍼미션 허가를 했었는지 여부를 확인
-            requestNecessaryPermissions(PERMISSIONS);//퍼미션 허가안되어 있다면 사용자에게 요청
-        }*/
-
-        /*// 등록된 사진이 제대로 인식되지 않았을 경우
-        if(checkImage() == -1) {
-            Toast.makeText(getApplicationContext(), "사진을 다시 선택해주세요!", Toast.LENGTH_LONG).show();
-            startActivity(new Intent(getApplication(), EyeGameSetActivity.class));
-        }*/
     }
 
     private int checkImage() {
-        if(matInput==null)
+        if (matInput == null)
             return -2;
         matOutput = new Mat(matInput.rows(), matInput.cols(), matInput.type());
         ConvertRGBtoGray(matInput.getNativeObjAddr(), matOutput.getNativeObjAddr());
-        if(detectFace() == -1)
+        if (detectFace() == -1)
             return -1;
 
-        //resultImage();
         return 1;
     }
 
@@ -147,22 +125,20 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 dlg.show();
                 break;
             case R.id.game1start_button: //게임1의 <게임 시작> 버튼에 대한 이벤트 처리
-                if(checkImage() == -1) {
+                if (checkImage() == -1) {
                     Toast.makeText(getApplicationContext(), "사진을 다시 선택해주세요!", Toast.LENGTH_LONG).show();
                     break;
-                }
-                else if(checkImage() == -2){
+                } else if (checkImage() == -2) {
                     Toast.makeText(getApplicationContext(), "사진을 선택하지 않았습니다!", Toast.LENGTH_LONG).show();
                     break;
-                }
-                else { //인텐트에 얼굴과 눈의 정보를 입력하고 다음 엑티비티 실행
+                } else { //인텐트에 얼굴과 눈의 정보를 입력하고 다음 엑티비티 실행
                     long subface = subFace.getNativeObjAddr();
                     Intent game1 = new Intent(V.getContext(), ChangeActivity.class);
-                    game1.putExtra("id",user_id);
+                    game1.putExtra("id", user_id);
                     game1.putExtra("subface", subface);
-                    game1.putExtra("eye_1",eye_1);
-                    game1.putExtra("eye_2",eye_2);
-                    game1.putExtra("gameNum",1);
+                    game1.putExtra("eye_1", eye_1);
+                    game1.putExtra("eye_2", eye_2);
+                    game1.putExtra("gameNum", 1);
                     startActivity(game1);
                     break;
                 }
@@ -190,7 +166,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GALLERY) {
-            if(data==null){
+            if (data == null) {
                 return;
             }
             if (data.getData() != null) {
@@ -227,8 +203,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
 
     // 얼굴 인식 & 눈 인식 함수
     private int detectFace() {
-
-        if(openXML()==-1)return -1; //인식에 필요한 XML을 open
+        if (openXML() == -1) return -1; //인식에 필요한 XML을 open
         Rect face_rc;
         Mat gray = new Mat();
         Imgproc.cvtColor(matInput, gray, Imgproc.COLOR_BGRA2GRAY); //인식을 위해 회색조로 변경
@@ -237,30 +212,28 @@ public class EyeGameSetActivity extends AppCompatActivity {
         MatOfRect faces = new MatOfRect();
         cas_face.detectMultiScale(gray, faces, 1.3, 1, 0, new Size(40, 40));
         Log.d(TAG, "얼굴 개수 리턴값 : " + faces.total());
-        if(faces.total() == 1){ //얼굴이 한 개 인식된 경우
+        if (faces.total() == 1) { //얼굴이 한 개 인식된 경우
             face_rc = faces.toList().get(0);
-            subFace=matInput.submat(face_rc); //얼굴 부분만 추출해서 subFace에 저장
+            subFace = matInput.submat(face_rc); //얼굴 부분만 추출해서 subFace에 저장
             Log.d(TAG, "ㅅ브페이스 : " + subFace);
-            face_rc.height/=2; //원할한 눈 인식을 위해 높이를 변경
+            face_rc.height /= 2; //원할한 눈 인식을 위해 높이를 변경
             //눈 인식
             cas_eye.detectMultiScale(gray.submat(face_rc), eyes, 1.3, 5, 0, new Size(20, 20));
             Log.d(TAG, "눈 개수 리턴값 : " + eyes.total());
-            if(eyes.total() == 2) { //눈 개수가 2개 인식된 경우 사각형을 그리기 위한 정보 저장
+            if (eyes.total() == 2) { //눈 개수가 2개 인식된 경우 사각형을 그리기 위한 정보 저장
                 //첫 번째 눈의 정보를 저장
-                eye_1[0]=eyes.toList().get(0).x;
-                eye_1[1]=eyes.toList().get(0).y;
-                eye_1[2]=eyes.toList().get(0).width;
-                eye_1[3]=eyes.toList().get(0).height;
+                eye_1[0] = eyes.toList().get(0).x;
+                eye_1[1] = eyes.toList().get(0).y;
+                eye_1[2] = eyes.toList().get(0).width;
+                eye_1[3] = eyes.toList().get(0).height;
                 //두 번째 눈의 정보를 저장
-                eye_2[0]=eyes.toList().get(1).x;
-                eye_2[1]=eyes.toList().get(1).y;
-                eye_2[2]=eyes.toList().get(1).width;
-                eye_2[3]=eyes.toList().get(1).height;
+                eye_2[0] = eyes.toList().get(1).x;
+                eye_2[1] = eyes.toList().get(1).y;
+                eye_2[2] = eyes.toList().get(1).width;
+                eye_2[3] = eyes.toList().get(1).height;
                 return 1;
-            }
-            else return -1;
-        }
-        else return -1;
+            } else return -1;
+        } else return -1;
     }
 
     // 갤러리에서 가져온 사진을 절대경로로 바꾸는 메소드
@@ -273,53 +246,29 @@ public class EyeGameSetActivity extends AppCompatActivity {
         return cursor.getString(column_index);
     }
 
-    /*static final int PERMISSION_REQUEST_CODE = 1;
-    String[] PERMISSIONS  = {"android.permission.WRITE_EXTERNAL_STORAGE"};
-
-    private boolean hasPermissions(String[] permissions) {
-        int ret = 0;
-        //스트링 배열에 있는 퍼미션들의 허가 상태 여부 확인
-        for (String perms : permissions){
-            ret = checkCallingOrSelfPermission(perms);
-            if (!(ret == PackageManager.PERMISSION_GRANTED)){
-                //퍼미션 허가 안된 경우
-                return false;
-            }
-
-        }
-        //모든 퍼미션이 허가된 경우
-        return true;
-    }
-
-    private void requestNecessaryPermissions(String[] permissions) {
-        //마시멜로( API 23 )이상에서 런타임 퍼미션(Runtime Permission) 요청
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
-        }
-    }*/
-
-    private int openXML(){ //인식에 필요한 XML을 open
+    private int openXML() { //인식에 필요한 XML을 open
         cas_face = new CascadeClassifier();
         cas_eye = new CascadeClassifier();
         String path = getExternalFilesDir(null).toString();
         if (cas_face.empty()) { //얼굴 탐지를 위한 파일 load
-            cas_face.load(path+"/haarcascade_frontalface_alt.xml");
-            Log.d("파일 열기 시도",getExternalFilesDir(null).toString());
-            if (cas_face.empty()){
-                Log.d("파일 열기 실패",getExternalFilesDir(null).toString());
+            cas_face.load(path + "/haarcascade_frontalface_alt.xml");
+            Log.d("파일 열기 시도", getExternalFilesDir(null).toString());
+            if (cas_face.empty()) {
+                Log.d("파일 열기 실패", getExternalFilesDir(null).toString());
                 return -1; //비정상 종료
             }
         }
         if (cas_eye.empty()) { //눈 탐지를 위한 파일 load
-            cas_eye.load(path+"/haarcascade_eye.xml");
-            Log.d("파일 열기 시도",getExternalFilesDir(null).toString());
+            cas_eye.load(path + "/haarcascade_eye.xml");
+            Log.d("파일 열기 시도", getExternalFilesDir(null).toString());
             if (cas_eye.empty()) {
-                Log.d("파일 열기 실패",getExternalFilesDir(null).toString());
+                Log.d("파일 열기 실패", getExternalFilesDir(null).toString());
                 return -1; //비정상 종료
             }
         }
         return 1; //정상적으로 open이 완료되면 1을 리턴
     }
+
     @Override
     public void onBackPressed() { //백버튼을 누르면 게임 선택 엑티비티르 돌아감
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
