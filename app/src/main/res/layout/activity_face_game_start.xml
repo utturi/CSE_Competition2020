@@ -15,14 +15,81 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_margin="10dp"
+            android:layout_weight="0.47" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.02">
+
+
+            <ImageView
+                android:id="@+id/image_1"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/up_arrow" />
+
+            <ImageView
+                android:id="@+id/image_2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/image_1"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/up_arrow" />
+
+            <ImageView
+                android:id="@+id/image_3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/image_2"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/up_arrow" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/font"
+                android:text="위 사진의 표정을 따라하세요"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/image_4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/text"
+                android:src="@drawable/up_arrow" />
+
+            <ImageView
+                android:id="@+id/image_5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/image_4"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/up_arrow" />
+
+            <ImageView
+                android:id="@+id/image_6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/image_5"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/up_arrow" />
+
+        </RelativeLayout>
 
         <com.wonderkiln.camerakit.CameraView
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@+id/imageView"
-            android:layout_weight="1" />
+            android:layout_margin="10dp"
+            android:layout_weight="0.47" />
 
     </LinearLayout>
 

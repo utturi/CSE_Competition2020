@@ -118,7 +118,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(EyeGameSetActivity.this);
                 dlg.setTitle("게임 설명"); //제목
                 //메시지(설명란)
-                dlg.setMessage(" o 본 게임은 5초간 사진 속 상대방의 눈을 마주치는\n    게임입니다\n" +
+                dlg.setMessage("\n o 본 게임은 5초간 사진 속 상대방의 눈을 마주치는\n    게임입니다\n" +
                         " o 오른쪽 상단의 느낌표 버튼을 눌러 사진 등록 방법을\n    볼 수 있습니다\n" +
                         " o 5초간 사진 속 상대방의 눈을 마주치는 시간을\n    측정해서 알려드립니다\n" +
                         " o 아이가 집중을 잘할 수 있도록 적절한 사진을 선택해\n    주세요");
@@ -131,7 +131,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 dlg.show();
                 break;
             case R.id.game1start_button: //게임1의 <게임 시작> 버튼에 대한 이벤트 처리
-               if (checkImage() == -1) {
+                if (checkImage() == -1) {
                     Toast.makeText(getApplicationContext(), "사진이 적절하지 않습니다!\n사진을 다시 선택해 주세요!", Toast.LENGTH_LONG).show();
                     break;
                 } else if (checkImage() == -2) {

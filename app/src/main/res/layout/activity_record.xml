@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ScrollView1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:onClick="onClick"
+        android:src="@drawable/back_button" />
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/back_button">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:text="1. 눈 마주치기"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart0"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/imcre_soojin"
+                android:text="Game1 - 눈 마주치기"
+                android:textColor="@color/primary_text"
+                android:textSize="25sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:text="2. 또박또박 말하기"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart1"
-            android:layout_width="match_parent"
-            android:layout_height="400dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal"
-            android:text="3. 표정 따라하기"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart0"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp" />
 
-        <Button
-            android:id="@+id/game3_record_button"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:onClick="onClick"
-            android:text="결과 보기"
-            android:textSize="30sp"
-            android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/imcre_soojin"
+                android:text="Game2 - 또박또박 말하기"
+                android:textColor="@color/primary_text"
+                android:textSize="25sp" />
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart1"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
-        <Button
-            android:id="@+id/record_back_button"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/game3_record_button"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:onClick="onClick"
-            android:text="돌아가기"
-            android:textSize="30sp"
-            android:textStyle="normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/imcre_soojin"
+                android:text="Game3 - 표정 따라하기"
+                android:textColor="@color/primary_text"
+                android:textSize="25sp" />
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game3_record_button"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/divider"
+                android:fontFamily="@font/font"
+                android:onClick="onClick"
+                android:text="기록 자세히 보기"
+                android:textColor="@color/icons"
+                android:textSize="30sp"
+                app:cornerRadius="20dp" />
 
-</ScrollView>
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

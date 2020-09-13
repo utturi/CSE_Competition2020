@@ -220,7 +220,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
             com.example.cse_competition2020.db.DBHelper1 helper = new com.example.cse_competition2020.db.DBHelper1(getApplicationContext());
             SQLiteDatabase db = helper.getWritableDatabase();
             Date currentTime = Calendar.getInstance().getTime();
-            String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+            String date_text = new SimpleDateFormat("yy.MM.dd", Locale.getDefault()).format(currentTime);
             String sql = String.format("INSERT INTO T1 VALUES ('" + user_id + "','" + date_text + "'," + check_num + ");");
             //id, 날짜, 점수를 T1에 저장
             db.execSQL(sql);

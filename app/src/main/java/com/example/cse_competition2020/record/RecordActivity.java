@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.ColorUtils;
 
 import com.example.cse_competition2020.MainActivity;
 import com.example.cse_competition2020.R;
@@ -56,6 +57,7 @@ public class RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         LineDataSet dataset0 = new LineDataSet(entries0, ": 점수");
         cursor0 = db0.rawQuery(sql0, null);
         ArrayList<String> labels0 = new ArrayList<String>();
@@ -66,17 +68,18 @@ public class RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         dataset0.setValueTextColor(38938);
         LineData data0 = new LineData(labels0, dataset0);
         dataset0.setLineWidth(2);
-        dataset0.setColors(Collections.singletonList(Color.BLUE));
+        dataset0.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data0.setValueTextSize(20);
         XAxis xAxis0 = lineChart1.getXAxis();
         xAxis0.setTextColor(Color.BLACK);
         xAxis0.setTextSize(10);
         YAxis yLAxis0 = lineChart1.getAxisLeft();
         yLAxis0.setTextColor(Color.BLACK);
-        yLAxis0.setTextSize(20);
+        yLAxis0.setTextSize(10);
         YAxis yRAxis0 = lineChart1.getAxisRight();
         yRAxis0.setDrawLabels(false);
         yRAxis0.setDrawAxisLine(false);
@@ -110,6 +113,7 @@ public class RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         LineDataSet dataset = new LineDataSet(entries, ": 점수");
         cursor = db.rawQuery(sql, null);
         ArrayList<String> labels = new ArrayList<String>();
@@ -120,17 +124,18 @@ public class RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         dataset.setValueTextColor(38938);
         LineData data = new LineData(labels, dataset);
         dataset.setLineWidth(2);
-        dataset.setColors(Collections.singletonList(Color.MAGENTA));
+        dataset.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data.setValueTextSize(20);
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setTextColor(Color.BLACK);
         xAxis.setTextSize(10);
         YAxis yLAxis = lineChart.getAxisLeft();
         yLAxis.setTextColor(Color.BLACK);
-        yLAxis.setTextSize(20);
+        yLAxis.setTextSize(10);
         YAxis yRAxis = lineChart.getAxisRight();
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
@@ -152,7 +157,7 @@ public class RecordActivity extends AppCompatActivity {
 
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){
-            case R.id.record_back_button:
+            case R.id.back_button:
                 Intent select = new Intent(V.getContext(),MainActivity.class);
                 select.putExtra("id", user_id);
                 startActivity(select);
@@ -164,7 +169,8 @@ public class RecordActivity extends AppCompatActivity {
                 break;
         }
     }
-    //핸드폰 back버튼을 누르면 StartActivity로 이동
+
+    // Back 버튼을 누르면 StartActivity로 이동
     @Override
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), MainActivity.class);

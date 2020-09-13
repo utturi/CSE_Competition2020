@@ -106,7 +106,7 @@ public class FaceGameStartActivity extends AppCompatActivity {
                 DBHelper3 helper = new DBHelper3(getApplicationContext());
                 SQLiteDatabase db = helper.getWritableDatabase();
                 Date currentTime = Calendar.getInstance().getTime();
-                String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+                String date_text = new SimpleDateFormat("yy.MM.dd", Locale.getDefault()).format(currentTime);
                 String new_user_id = user_id + what_game;
                 if(gameResult.contains(what_game)){ //게임 결과에 내가 선택한 게임에 대한 확률이 나올 경우
                     String tmp = gameResult.substring(gameResult.indexOf(what_game));

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -116,6 +117,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                                 db.close();
                                 Intent start_intent = new Intent(getApplicationContext(), MainActivity.class); //MainActivity 실행
                                 start_intent.putExtra("id", convertPw); //해당 고유번호(id)를 가진 상태로 시작 화면으로 전환
+                                start_intent.putExtra("user_name", name + "(" + age + ")");
                                 startActivity(start_intent);
                             }
                         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
@@ -171,6 +173,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                                     if (V.getId() == R.id.load_button) {
                                         Intent start_intent = new Intent(getApplicationContext(), MainActivity.class); //MainActivity 실행
                                         start_intent.putExtra("id", id_list.get(check[0])); //해당 고유번호(id)를 가진 상태로 시작 화면으로 전환
+                                        start_intent.putExtra("user_name", list.get(check[0]));
                                         startActivity(start_intent);
                                     } else if (V.getId() == R.id.remove_button) { //삭제 버튼일경우
                                         db.execSQL("DELETE FROM T0 WHERE id = '" + id_list.get(check[0]) + "'");

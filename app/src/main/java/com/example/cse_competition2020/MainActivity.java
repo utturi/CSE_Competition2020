@@ -3,6 +3,7 @@ package com.example.cse_competition2020;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,8 @@ import com.example.cse_competition2020.record.RecordActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     String user_id;
+    String user_name;
+    private TextView top_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Toast.makeText(getApplicationContext(), "This is MainActivity", Toast.LENGTH_LONG).show();
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
         //Toast.makeText(getApplicationContext(), "" + user_id, Toast.LENGTH_LONG).show();
     }
 

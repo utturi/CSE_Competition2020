@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.example.cse_competition2020.R;
 public class FaceGameSetActivity extends AppCompatActivity {
     String user_id;
     private Button guideButton, startButton;
+    private ImageView back_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,16 @@ public class FaceGameSetActivity extends AppCompatActivity {
         Intent intent = getIntent(); // GameSelectActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
 
+        back_button = (ImageView)findViewById(R.id.back_button);
         guideButton = (Button)findViewById(R.id.game3guide_button);
         startButton = (Button)findViewById(R.id.game3start_button);
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         // 게임 설명 버튼
         guideButton.setOnClickListener(new View.OnClickListener() {

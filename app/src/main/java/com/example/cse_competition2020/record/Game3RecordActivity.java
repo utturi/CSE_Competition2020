@@ -54,6 +54,7 @@ public class Game3RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         LineDataSet dataset1 = new LineDataSet(entries1, ": 확률(%)");
         cursor1 = db1.rawQuery(sql1, null);
         ArrayList<String> labels1 = new ArrayList<String>();
@@ -64,17 +65,18 @@ public class Game3RecordActivity extends AppCompatActivity {
                 }
             }
         }
+
         dataset1.setValueTextColor(38938);
         LineData data1 = new LineData(labels1, dataset1);
         dataset1.setLineWidth(2);
-        dataset1.setColors(Collections.singletonList(Color.BLUE));
+        dataset1.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data1.setValueTextSize(20);
         XAxis xAxis1 = lineChart1.getXAxis();
         xAxis1.setTextColor(Color.BLACK);
         xAxis1.setTextSize(10);
         YAxis yLAxis1 = lineChart1.getAxisLeft();
         yLAxis1.setTextColor(Color.BLACK);
-        yLAxis1.setTextSize(20);
+        yLAxis1.setTextSize(10);
         YAxis yRAxis1 = lineChart1.getAxisRight();
         yRAxis1.setDrawLabels(false);
         yRAxis1.setDrawAxisLine(false);
@@ -121,14 +123,14 @@ public class Game3RecordActivity extends AppCompatActivity {
         dataset2.setValueTextColor(38938);
         LineData data2 = new LineData(labels2, dataset2);
         dataset2.setLineWidth(2);
-        dataset2.setColors(Collections.singletonList(Color.BLUE));
+        dataset2.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data2.setValueTextSize(20);
         XAxis xAxis2 = lineChart2.getXAxis();
         xAxis2.setTextColor(Color.BLACK);
         xAxis2.setTextSize(10);
         YAxis yLAxis2 = lineChart2.getAxisLeft();
         yLAxis2.setTextColor(Color.BLACK);
-        yLAxis2.setTextSize(20);
+        yLAxis2.setTextSize(10);
         YAxis yRAxis2 = lineChart2.getAxisRight();
         yRAxis2.setDrawLabels(false);
         yRAxis2.setDrawAxisLine(false);
@@ -175,14 +177,14 @@ public class Game3RecordActivity extends AppCompatActivity {
         dataset3.setValueTextColor(38938);
         LineData data3 = new LineData(labels3, dataset3);
         dataset3.setLineWidth(2);
-        dataset3.setColors(Collections.singletonList(Color.BLUE));
+        dataset3.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data3.setValueTextSize(20);
         XAxis xAxis3 = lineChart3.getXAxis();
         xAxis3.setTextColor(Color.BLACK);
         xAxis3.setTextSize(10);
         YAxis yLAxis3 = lineChart3.getAxisLeft();
         yLAxis3.setTextColor(Color.BLACK);
-        yLAxis3.setTextSize(20);
+        yLAxis3.setTextSize(10);
         YAxis yRAxis3 = lineChart3.getAxisRight();
         yRAxis3.setDrawLabels(false);
         yRAxis3.setDrawAxisLine(false);
@@ -229,14 +231,14 @@ public class Game3RecordActivity extends AppCompatActivity {
         dataset4.setValueTextColor(38938);
         LineData data4 = new LineData(labels4, dataset4);
         dataset4.setLineWidth(2);
-        dataset4.setColors(Collections.singletonList(Color.BLUE));
+        dataset4.setColors(Collections.singletonList(getResources().getColor(R.color.colorAccent)));
         data4.setValueTextSize(20);
         XAxis xAxis4 = lineChart4.getXAxis();
         xAxis4.setTextColor(Color.BLACK);
         xAxis4.setTextSize(10);
         YAxis yLAxis4 = lineChart4.getAxisLeft();
         yLAxis4.setTextColor(Color.BLACK);
-        yLAxis4.setTextSize(20);
+        yLAxis4.setTextSize(10);
         YAxis yRAxis4 = lineChart4.getAxisRight();
         yRAxis4.setDrawLabels(false);
         yRAxis4.setDrawAxisLine(false);
@@ -264,7 +266,8 @@ public class Game3RecordActivity extends AppCompatActivity {
                 break;
         }
     }
-    //핸드폰 back버튼을 누르면 RecordActivity로 이동
+
+    // Back버튼을 누르면 RecordActivity로 이동
     @Override
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), RecordActivity.class);

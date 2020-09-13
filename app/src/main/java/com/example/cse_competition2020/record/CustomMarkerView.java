@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.cse_competition2020.R;
@@ -43,16 +44,20 @@ public class CustomMarkerView extends MarkerView {
             db = helper.getWritableDatabase();
             sql = "SELECT * FROM T1;";
         }
-        Cursor cursor = db.rawQuery(sql, null);
-        if (cursor.getCount() > 0) {
-            int tmp = 0;
-            while (cursor.moveToNext()) {
-                if (cursor.getString(0).equals(a.user_id)) {
-                    if(tmp == e.getXIndex()) {
-                        tvContent.setText("" + cursor.getString(1));
-                        break;
+        //Log.d("55555555555555555", a.game + "");
+        //Log.d("5555555555555", db.toString());
+        if(db != null) {
+            Cursor cursor = db.rawQuery(sql, null);
+            if (cursor.getCount() > 0) {
+                int tmp = 0;
+                while (cursor.moveToNext()) {
+                    if (cursor.getString(0).equals(a.user_id)) {
+                        if (tmp == e.getXIndex()) {
+                            tvContent.setText("" + cursor.getString(1));
+                            break;
+                        }
+                        tmp++;
                     }
-                    tmp++;
                 }
             }
         }
