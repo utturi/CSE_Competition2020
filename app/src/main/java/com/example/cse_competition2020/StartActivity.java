@@ -165,7 +165,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                                             //Toast.makeText(StartActivity.this, ""+check[0], Toast.LENGTH_SHORT).show();
                                         }
                                     })
-                            .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (V.getId() == R.id.load_button) {
