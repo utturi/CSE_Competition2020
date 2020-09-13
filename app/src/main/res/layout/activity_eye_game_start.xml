@@ -8,18 +8,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".game1.EyeGameStartActivity">
-    <Button
-        android:id="@+id/startBtn"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="이 버튼을 누르면 5초간 게임이 시작됩니다!\n얼굴을 가운데에 위치하고 눌러주세요."
-        android:onClick="btnClick"/>
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/activity_surface_view"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         opencv:camera_id="any"
         android:visibility="visible" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/font"
+        android:text="이 버튼을 누르면 5초간 게임이 시작됩니다!\n얼굴을 가운데에 위치하고 눌러주세요"
+        android:onClick="btnClick"
+        android:textSize="15sp"
+        app:cornerRadius="20dp" />
+
 </RelativeLayout>

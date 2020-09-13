@@ -1,63 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-    <TextView android:id="@id/title"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:textSize="35sp"
-        android:text="게임을 선택하세요!"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        />
-    <Button android:id="@+id/eyegame_button"
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
         android:onClick="onClick"
-        android:layout_width="360dp"
-        android:layout_height="130dp"
+        android:src="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/font"
+        android:text="게임을 선택하세요"
+        android:textColor="@color/primary_text"
+        android:textSize="40sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/eyegame_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
         android:layout_below="@id/title"
-        android:text="눈 마주치기"
-        android:textSize="40sp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        />
-
-    <Button android:id="@+id/voicegame_button"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/font"
         android:onClick="onClick"
-        android:layout_width="360dp"
-        android:layout_height="130dp"
-        android:text="또박또막 말하기"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_below="@id/eyegame_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        />
-    <Button android:id="@+id/facegame_button"
-        android:onClick="onClick"
-        android:layout_width="360dp"
-        android:layout_height="130dp"
-        android:text="표정 따라하기"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_below="@id/voicegame_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        />
-    <Button android:id="@+id/back_button"
-        android:onClick="onClick"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="돌아가기"
+        android:text="눈 마주치기 게임"
         android:textSize="30sp"
-        android:textStyle="normal"
-        android:layout_below="@id/facegame_button"
+        app:cornerRadius="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eyegame_button"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        />
+        android:fontFamily="@font/font"
+        android:text="사용자가 등록한 사진의 눈을 마주치는 게임"
+        android:textColor="@color/secondary_text"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/voicegame_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/eyegame_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
+        android:text="또박또박 말하기 게임"
+        android:textSize="30sp"
+        app:cornerRadius="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/voicegame_button"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/font"
+        android:text="주어진 사진을 보고 단어를 말하는 게임"
+        android:textColor="@color/secondary_text"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/facegame_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/voicegame_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
+        android:text="표정 따라하기 게임"
+        android:textSize="30sp"
+        app:cornerRadius="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/facegame_button"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/font"
+        android:text="주어진 사진을 보고 표정을 따라하는 게임"
+        android:textColor="@color/secondary_text"
+        android:textSize="18sp" />
+
 </RelativeLayout>

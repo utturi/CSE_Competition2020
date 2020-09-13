@@ -2,15 +2,17 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:id="@+id/change_text"
-        android:gravity="center_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
         android:text="3"
-        android:textStyle="bold"
+        android:fontFamily="@font/imcre_soojin"
+        android:textColor="@color/icons"
         android:textSize="500dp" />
+
 </LinearLayout>

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CSE_Competition2020</string>
     <string name="emotion_name">Emotion</string>
+    <string name="_1_5"><![CDATA[< 1 / 5 >]]></string>
+    <string name="autism_spectrum">* 자폐 스펙트럼이란 - 발달성 장애 중 하나로 \n 1000명 중 6~7명 정도로 발생하며 보통 3세\n 이전부터 증상이 나타나기 시작</string>
+    <string name="explain">=> 자폐 스펙트럼 장애는 가능한 조기에 발견하여\n \t충분한 시간 동안 특수 교육, 언어 치료, 행동 치료\n \t등을 시작하는 것이 중요</string>
 </resources>

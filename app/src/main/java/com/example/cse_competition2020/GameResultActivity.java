@@ -43,7 +43,7 @@ public class GameResultActivity extends AppCompatActivity {
 
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){
-            case R.id.gmae_result_explain: //<결과보기> 버튼 눌렀을 경우
+            case R.id.game_result_explain: //<결과보기> 버튼 눌렀을 경우
                 //다이얼로그를 띄어서 결과를 알려줌
                 AlertDialog.Builder result_dlg = new AlertDialog.Builder(GameResultActivity.this);
                 result_dlg.setTitle("게임 결과"); //제목
@@ -64,7 +64,7 @@ public class GameResultActivity extends AppCompatActivity {
                 });
                 result_dlg.show();
                 break;
-            case R.id.gmae_back_button: //되돌아가기 버튼 -> GameSelectActivity로 넘어감
+            case R.id.game_back_button: //되돌아가기 버튼 -> GameSelectActivity로 넘어감
                 /*if(check == -1){ //결과보기 버튼 안누르고 바로 되돌아가기 버튼을 누를경우
                     com.example.cse_competition2020.db.DBHelper1 helper = new com.example.cse_competition2020.db.DBHelper1(getApplicationContext());
                     SQLiteDatabase db = helper.getWritableDatabase();

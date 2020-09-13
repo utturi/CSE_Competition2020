@@ -1,38 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_height="match_parent" >
 
-    <TextView android:id="@id/title"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:textSize="50sp"
-        android:text="표정 따라하기"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="100dp" />
+    <ImageView
+        android:id="@+id/back_button"
+        android:onClick="onClick"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/back_button" />
 
-    <Button android:id="@+id/game3guide_button"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        android:layout_alignParentTop="true"
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back_button"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/font"
+        android:text="표정 따라하기 게임"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:textSize="35sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_below="@id/title"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="70dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/facial_expression"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game3guide_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/font"
         android:text="게임 설명"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginTop="300dp" />
+        app:cornerRadius="20dp" />
 
-    <Button android:id="@+id/game3start_button"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game3start_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/game3guide_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/font"
         android:text="게임 시작"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_below="@id/game3guide_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        app:cornerRadius="20dp" />
 
 </RelativeLayout>

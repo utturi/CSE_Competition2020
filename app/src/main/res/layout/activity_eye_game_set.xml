@@ -2,49 +2,88 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:onClick="onClick"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/back_button" />
+
+    <TextView
+        android:id="@+id/game_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/back_button"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/font"
+        android:text="눈 마주치기 게임"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:textSize="35sp" />
 
     <ImageView
         android:id="@+id/imageGuide"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignRight="@id/imageViewInput"
-        android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/ic_image_wow" />
+        android:layout_below="@id/game_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="50dp"
+        app:srcCompat="@drawable/wow" />
 
     <ImageView
         android:id="@+id/imageViewInput"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:layout_below="@id/imageGuide"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="5dp"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/ic_image_search"/>
+        app:srcCompat="@drawable/image_search"/>
 
-    <Button android:id="@+id/game1guide_button"
-        android:onClick="onClick"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/imageViewInput"
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/imageViewInput"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/font"
+        android:gravity="center_horizontal"
+        android:text="- 사진 등록 -"
+        android:textColor="@color/secondary_text"
+        android:textSize="25sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game1guide_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageViewInput"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
         android:text="게임 설명"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        app:cornerRadius="20dp" />
 
-    <Button android:id="@+id/game1start_button"
-        android:onClick="onClick"
-        android:layout_width="220dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/game1guide_button"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game1start_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/game1guide_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
         android:text="게임 시작"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        app:cornerRadius="20dp" />
 
 </RelativeLayout>

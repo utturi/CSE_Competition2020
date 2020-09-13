@@ -1,35 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/game_over"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/font"
+        android:text="게임 종료"
+        android:textColor="@color/primary_text"
+        android:textSize="35sp" />
 
     <ImageView android:id="@+id/game_result_image"
         android:layout_width="match_parent"
         android:layout_height="400dp"
+        android:layout_below="@id/game_over"
         android:src="@drawable/goodjob"/>
 
-    <Button android:id="@+id/gmae_back_button"
-        android:onClick="onClick"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="돌아가기"
-        android:textSize="30sp"
-        android:textStyle="normal"
-        android:layout_below="@id/gmae_result_explain"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" />
-
-    <Button android:id="@+id/gmae_result_explain"
-        android:onClick="onClick"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:text="결과보기"
-        android:textSize="30sp"
-        android:textStyle="normal"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game_result_explain"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
         android:layout_below="@id/game_result_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
-        />
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
+        android:text="결과 보기"
+        android:textSize="30sp"
+        app:cornerRadius="20dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/game_back_button"
+        android:layout_width="350dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/game_result_explain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/font"
+        android:onClick="onClick"
+        android:text="돌아 가기"
+        android:textSize="30sp"
+        app:cornerRadius="20dp" />
+
 </RelativeLayout>

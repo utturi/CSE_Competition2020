@@ -38,21 +38,28 @@ import java.util.UUID;
 
 2020.8.19 영훈
 마이크, 카메라 퍼미션 추가
+
+2020.09.12 대호
+- Back 버튼 2번 누르면 종료
  */
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     String name; //입력받은 이름이 저장됨
+    private long backKeyPressedTime = 0; // 시간을 저장하는 변수
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
         int CameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int VoicePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
         if (CameraPermission == PackageManager.PERMISSION_GRANTED && VoicePermission == PackageManager.PERMISSION_GRANTED)
             ;
         else
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, 0);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, 0);
     }
 
     @Override
@@ -69,21 +76,22 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         switch (V.getId()) {
             case R.id.add_button: //추가 버튼에 대한 이벤트 처리
                 AlertDialog.Builder ad = new AlertDialog.Builder(StartActivity.this);
-                ad.setMessage("아이 이름을 입력하세요.");
+                ad.setMessage("아이의 이름을 입력하세요");
                 final EditText e1 = new EditText(StartActivity.this);
                 ad.setView(e1);
                 ad.setPositiveButton("확인", new DialogInterface.OnClickListener() { //확인 버튼을 누른 경우
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         name = e1.getText().toString(); //입력한 아이 이름이 저장됨
-                        Toast.makeText(getApplicationContext(), "아이 생일을 선택하세요.", Toast.LENGTH_SHORT).show(); //아이의 생일을 입력받아서 개월 수를 저장
+                        Toast.makeText(getApplicationContext(), "아이의 생년월일을 선택하세요", Toast.LENGTH_SHORT).show(); //아이의 생일을 입력받아서 개월 수를 저장
                         final Calendar cal = Calendar.getInstance();
                         DatePickerDialog dialog2 = new DatePickerDialog(StartActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                                 //Toast.makeText(StartActivity.this, "년도" + year, Toast.LENGTH_SHORT).show();
                                 //입력한 아이랑 나이를 table에 저장
-                                com.example.cse_competition2020.db.DBHelper helper = new com.example.cse_competition2020.db.DBHelper(getApplicationContext());
+                                com.example.cse_competition2020.db.DBHelper helper =
+                                        new com.example.cse_competition2020.db.DBHelper(getApplicationContext());
                                 SQLiteDatabase db = helper.getWritableDatabase();
                                 String sql;
                                 // UUID uuid = UUID.randomUUID();
@@ -144,11 +152,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 //cursor.close();
                 //불러올 데이터가 없다면
                 if (list.isEmpty()) {
-                    Toast.makeText(StartActivity.this, "불러올 목록이 없습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StartActivity.this, "불러올 수 있는 아이가 없습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     final CharSequence[] data = list.toArray(new CharSequence[list.size()]);
                     final int[] check = new int[1];
-                    builder.setTitle("아이 선택")
+                    builder.setTitle("아이 목록")
                             .setSingleChoiceItems(data, 0,
                                     new DialogInterface.OnClickListener() {
                                         @Override
@@ -157,7 +165,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                                             //Toast.makeText(StartActivity.this, ""+check[0], Toast.LENGTH_SHORT).show();
                                         }
                                     })
-                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (V.getId() == R.id.load_button) {
@@ -184,10 +192,27 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //핸드폰 back버튼을 누르면 앱 종료
+    // Back Button 눌렀을 경우
     @Override
     public void onBackPressed() {
-        ActivityCompat.finishAffinity(this);
-        System.exit(0);
+        // 현재 시간이 backKeyPressedTime + 2000보다 크면 backKeyPressedTime에 현재시간을 저장하고 알림창을 띄움
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis();
+            showGuide();
+            return;
+        }
+        // 현재 시간이 backKeyPressedTime + 2000보다 작으면 앱 종료
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            //this.finish();
+            ActivityCompat.finishAffinity(this);
+            System.exit(0);
+            toast.cancel();
+        }
+    }
+
+    // 알림창 띄우는 함수
+    public void showGuide() {
+        toast = Toast.makeText(this, "\'뒤로\' 버튼을 한 번 더 누르시면 종료됩니다", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

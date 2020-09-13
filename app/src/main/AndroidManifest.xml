@@ -8,17 +8,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature
-        android:name="android.hardware.camera"
-         />
+        android:name="android.hardware.camera" />
     <uses-feature
-        android:name="android.hardware.camera.autofocus"
-         />
+        android:name="android.hardware.camera.autofocus" />
     <uses-feature
-        android:name="android.hardware.camera.front"
-         />
+        android:name="android.hardware.camera.front" />
     <uses-feature
-        android:name="android.hardware.camera.front.autofocus"
-         />
+        android:name="android.hardware.camera.front.autofocus" />
 
     <supports-screens
         android:anyDensity="true"
@@ -33,7 +29,7 @@
         android:label="getBetter"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"> <!-- 색깔이 검은색으로 바뀜 -->
+        android:theme="@style/AppTheme">
 
         <activity android:name=".MainActivity" />
         <activity android:name=".GameResultActivity" />
@@ -45,12 +41,16 @@
             android:name=".game1.EyeGameStartActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".game2.Game2Activity" />
-        <activity android:name=".game2.VoiceGameActivity" />
+        <activity android:name=".game2.VoiceGameStartActivity" />
+        <activity android:name=".game2.VoiceGameSetActivity" />
         <activity android:name=".game3.FaceGameSetActivity" />
         <activity android:name=".game3.FaceGameSelectActivity"/>
         <activity android:name=".game3.FaceGameStartActivity"/>
-        <activity android:name=".StartActivity">
+        <activity android:name=".StartActivity"/>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

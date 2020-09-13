@@ -13,6 +13,7 @@ import com.example.cse_competition2020.record.RecordActivity;
 -게임 선택 버튼을 누르면 게임선택 activity로 이동
 -기록 선택 버튼을 누르면 기록 activity로 이동
  */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     String user_id;
     @Override
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View V){ //버튼 클릭에 대한 이벤트 처리
         switch(V.getId()){
+            case R.id.back_button: // back 버튼을 누르면 뒤로 이동
+                onBackPressed();
+                break;
             case R.id.select_button: //게임 선택 버튼의 경우 게임 선택 activity로 이동
                 Intent select = new Intent(V.getContext(),GameSelectActivity.class);
                 select.putExtra("id", user_id);
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //핸드폰 back버튼을 누르면 StartActivity로 이동
+    // Back버튼을 누르면 StartActivity로 이동
     @Override
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), StartActivity.class);

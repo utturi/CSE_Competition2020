@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cse_competition2020.game1.EyeGameSetActivity;
-import com.example.cse_competition2020.game2.VoiceGameActivity;
+import com.example.cse_competition2020.game2.VoiceGameSetActivity;
 import com.example.cse_competition2020.game3.FaceGameSetActivity;
 
 /*
@@ -18,14 +18,13 @@ import com.example.cse_competition2020.game3.FaceGameSetActivity;
 
 public class GameSelectActivity extends AppCompatActivity implements View.OnClickListener {
     String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_select);
         Intent intent = getIntent(); //MainActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
-
-        //Toast.makeText(getApplicationContext(), "This is GameSelectActivity", Toast.LENGTH_LONG).show();
     }
     @Override
     public void onClick(View V){
@@ -36,7 +35,7 @@ public class GameSelectActivity extends AppCompatActivity implements View.OnClic
                 startActivity(eye);
                 break;
             case R.id.voicegame_button: //또박또박 말하기 게임 실행 (VoiceGameActivity 실행)
-                Intent voice = new Intent(V.getContext(), VoiceGameActivity.class);
+                Intent voice = new Intent(V.getContext(), VoiceGameSetActivity.class);
                 voice.putExtra("id", user_id);
                 startActivity(voice);
                 break;
@@ -46,13 +45,12 @@ public class GameSelectActivity extends AppCompatActivity implements View.OnClic
                 startActivity(face);
                 break;
             case R.id.back_button: //MainActivity 액티비티로 이동
-                Intent back = new Intent(V.getContext(), MainActivity.class);
-                back.putExtra("id", user_id); //user_id를 다시 main으로 넘겨줌
-                startActivity(back);
+                onBackPressed();
                 break;
         }
     }
-    //핸드폰 back버튼을 누르면 MainActivity로 이동
+
+    // back버튼을 누르면 MainActivity로 이동
     @Override
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), MainActivity.class);
