@@ -131,7 +131,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 dlg.show();
                 break;
             case R.id.game1start_button: //게임1의 <게임 시작> 버튼에 대한 이벤트 처리
-                if (checkImage() == -1) {
+               if (checkImage() == -1) {
                     Toast.makeText(getApplicationContext(), "사진이 적절하지 않습니다!\n사진을 다시 선택해 주세요!", Toast.LENGTH_LONG).show();
                     break;
                 } else if (checkImage() == -2) {

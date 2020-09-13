@@ -26,6 +26,7 @@ import java.util.Collections;
 
 public class RecordActivity extends AppCompatActivity {
     public static String user_id;
+    public static int game;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class RecordActivity extends AppCompatActivity {
 
         LineChart lineChart = (LineChart) findViewById(R.id.chart1); //2번 또박또박 말하기 게임
         LineChart lineChart1 = findViewById(R.id.chart0); //1번 눈 마주치기 게임
-        LineChart lineChart2 = findViewById(R.id.chart2); //3번 표정 따라하기 게임
+        //LineChart lineChart2 = findViewById(R.id.chart2); //3번 표정 따라하기 게임
 
 
         //게임1데이터설정 ... 여기부터 눈마주치기
@@ -71,18 +72,24 @@ public class RecordActivity extends AppCompatActivity {
         dataset0.setColors(Collections.singletonList(Color.BLUE));
         data0.setValueTextSize(20);
         XAxis xAxis0 = lineChart1.getXAxis();
-        xAxis0.setTextColor(Color.WHITE);
+        xAxis0.setTextColor(Color.BLACK);
         xAxis0.setTextSize(10);
         YAxis yLAxis0 = lineChart1.getAxisLeft();
-        yLAxis0.setTextColor(Color.WHITE);
+        yLAxis0.setTextColor(Color.BLACK);
         yLAxis0.setTextSize(20);
         YAxis yRAxis0 = lineChart1.getAxisRight();
         yRAxis0.setDrawLabels(false);
         yRAxis0.setDrawAxisLine(false);
         yRAxis0.setDrawGridLines(false);
-        CustomMarkerView0 mv0 = new CustomMarkerView0(getApplicationContext(), R.layout.activity_custom_marker_view0);
+        CustomMarkerView mv0 = new CustomMarkerView(getApplicationContext(), R.layout.activity_custom_marker_view);
+        lineChart1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                game=1;
+            }
+        });
         lineChart1.setMarkerView(mv0);
-        //lineChart1.getAxisLeft().setAxisMaxValue(6);
+        lineChart1.getAxisLeft().setAxisMaxValue(6);
         lineChart1.getAxisLeft().setDrawTopYLabelEntry(false);
         lineChart1.setData(data0);
         lineChart1.animateY(2000, Easing.EasingOption.EaseInCubic);
@@ -119,16 +126,22 @@ public class RecordActivity extends AppCompatActivity {
         dataset.setColors(Collections.singletonList(Color.MAGENTA));
         data.setValueTextSize(20);
         XAxis xAxis = lineChart.getXAxis();
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.BLACK);
         xAxis.setTextSize(10);
         YAxis yLAxis = lineChart.getAxisLeft();
-        yLAxis.setTextColor(Color.WHITE);
+        yLAxis.setTextColor(Color.BLACK);
         yLAxis.setTextSize(20);
         YAxis yRAxis = lineChart.getAxisRight();
         yRAxis.setDrawLabels(false);
         yRAxis.setDrawAxisLine(false);
         yRAxis.setDrawGridLines(false);
         CustomMarkerView mv = new CustomMarkerView(getApplicationContext(), R.layout.activity_custom_marker_view);
+        lineChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                game=2;
+            }
+        });
         lineChart.setMarkerView(mv);
         lineChart.getAxisLeft().setAxisMaxValue(6);
         lineChart.getAxisLeft().setDrawTopYLabelEntry(false);
@@ -143,6 +156,11 @@ public class RecordActivity extends AppCompatActivity {
                 Intent select = new Intent(V.getContext(),MainActivity.class);
                 select.putExtra("id", user_id);
                 startActivity(select);
+                break;
+            case R.id.game3_record_button: //게임 3에 대한 결과 엑티비티로 넘어감
+                Intent game3_record = new Intent(V.getContext(),Game3RecordActivity.class);
+                game3_record.putExtra("id", user_id);
+                startActivity(game3_record);
                 break;
         }
     }

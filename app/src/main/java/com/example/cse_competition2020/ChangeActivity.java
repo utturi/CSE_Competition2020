@@ -18,6 +18,7 @@ import java.util.TimerTask;
 public class ChangeActivity extends AppCompatActivity {
     String user_id;
     int gameNum;
+    String game3_name="";
     //GameSelectActivity set=new GameSelectActivity();
     //private TimerTask second;
     private TimerTask sec;
@@ -54,6 +55,7 @@ public class ChangeActivity extends AppCompatActivity {
                             break;
                         case 3:
                             gameStart = new Intent(getApplicationContext(), FaceGameSetActivity.class);
+                            gameStart.putExtra("game3_name", game3_name);
                             break;
                     }
                     gameStart.putExtra("id",user_id);
@@ -83,6 +85,9 @@ public class ChangeActivity extends AppCompatActivity {
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
         gameNum = intent.getIntExtra("gameNum",0);
+        if(gameNum == 3){
+            game3_name = intent.getStringExtra("game3_name");
+        }
         //Toast.makeText(getApplicationContext(), "This is changeActivity", Toast.LENGTH_LONG).show();
         //testStart(); //위에서 만들어놓은 실시간으로 text값 변경하는 함수 호출
         count3sec();

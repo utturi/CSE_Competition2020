@@ -1,6 +1,7 @@
 package com.example.cse_competition2020.game3;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cse_competition2020.GameResultActivity;
 import com.example.cse_competition2020.R;
+import com.example.cse_competition2020.db.DBHelper3;
 import com.example.cse_competition2020.ect.Classifier;
 import com.example.cse_competition2020.ect.ImageClassifier;
 import com.wonderkiln.camerakit.CameraKitError;
@@ -19,7 +21,11 @@ import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Executor;
@@ -36,7 +42,7 @@ public class FaceGameStartActivity extends AppCompatActivity {
     //Bitmap bitmap; // 사진 정보
     String gameResult = ""; // 게임 결과에 대한 정보
     private ImageView imageView;
-
+    String what_game;
     private Executor executor = Executors.newSingleThreadExecutor();
 
     String user_id;
@@ -63,15 +69,19 @@ public class FaceGameStartActivity extends AppCompatActivity {
         switch(game3_name) {
             case "happy":
                 imageView.setImageResource(R.drawable.happy);
+                what_game = "Happy";
                 break;
             case "sad":
                 imageView.setImageResource(R.drawable.sad);
+                what_game = "Sad";
                 break;
-            case "surprised":
+            case "surprise":
                 imageView.setImageResource(R.drawable.surprised);
+                what_game = "Surprise";
                 break;
             case "angry":
                 imageView.setImageResource(R.drawable.angry);
+                what_game = "Angry";
                 break;
         }
 
@@ -92,10 +102,29 @@ public class FaceGameStartActivity extends AppCompatActivity {
                 final List<Classifier.Recognition> results = classifier.recognizeImage(bitmap);
                 gameResult = results.toString(); // 나온 결과 값을 String화 시킴
 
-                // 다음 엑티비티로 Intent
+                //db저장
+                DBHelper3 helper = new DBHelper3(getApplicationContext());
+                SQLiteDatabase db = helper.getWritableDatabase();
+                Date currentTime = Calendar.getInstance().getTime();
+                String date_text = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentTime);
+                String new_user_id = user_id + what_game;
+                if(gameResult.contains(what_game)){ //게임 결과에 내가 선택한 게임에 대한 확률이 나올 경우
+                    String tmp = gameResult.substring(gameResult.indexOf(what_game));
+                    String[] array = tmp.split(" ");
+                    String sql = String.format("INSERT INTO T3 VALUES ('" + new_user_id + "','" + date_text + "'," + Float.valueOf(array[1].substring(1, array[1].length() -3)) + ");");
+                    Log.d(TAG, "확률111 : "+ Float.valueOf(array[1].substring(1, array[1].length() -3)));
+                    db.execSQL(sql);
+                }
+                else{
+                    String sql = String.format("INSERT INTO T3 VALUES ('" + new_user_id + "','" + date_text + "'," + 0 + ");");
+                    db.execSQL(sql);
+                }
+                //id, 날짜, 점수를 T1에 저장
+                Log.d(TAG, "김의현" + gameResult);
+                gameResult = gameResult.substring(1);
                 Intent intent = new Intent(getApplicationContext(), GameResultActivity.class);
                 intent.putExtra("id", user_id);
-                Log.d(TAG,"게임 결과 : " + gameResult);
+                intent.putExtra("gameResult", gameResult);
                 startActivity(intent);
             }
 

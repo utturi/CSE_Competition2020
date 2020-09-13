@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.cse_competition2020.R;
 import com.example.cse_competition2020.db.DBHelper1;
+import com.example.cse_competition2020.db.DBHelper2;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -25,12 +26,23 @@ public class CustomMarkerView extends MarkerView {
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
     // content (user-interface)
+
+    //그래프안에 점 클릭시 2020-01-11 날짜 나타나게하는 함수
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         RecordActivity a = new RecordActivity();
-        DBHelper1 helper = new DBHelper1(getContext());
-        final SQLiteDatabase db = helper.getWritableDatabase();
-        String sql = "SELECT * FROM T1;";
+        SQLiteDatabase db = null;
+        String sql = null;
+        if(a.game == 1){
+            DBHelper2 helper = new DBHelper2(getContext());
+            db = helper.getWritableDatabase();
+            sql = "SELECT * FROM T2;";
+        }
+        else if(a.game == 2){
+            DBHelper1 helper = new DBHelper1(getContext());
+            db = helper.getWritableDatabase();
+            sql = "SELECT * FROM T1;";
+        }
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.getCount() > 0) {
             int tmp = 0;
@@ -46,12 +58,14 @@ public class CustomMarkerView extends MarkerView {
         }
     }
 
+    //점 클릭시 x좌표
     @Override
     public int getXOffset(float xpos) {
         // this will center the marker-view horizontally
         return -(getWidth() / 2);
     }
 
+    //점 클릭시 y좌표
     @Override
     public int getYOffset(float ypos) {
         // this will cause the marker-view to be above the selected value

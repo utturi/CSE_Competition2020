@@ -208,9 +208,9 @@ public class EyeGameStartActivity extends AppCompatActivity
                     }, 0);
                     //게임 결과 넘기고 gameresult activity 실행
                     double record=(int)score/1000+((int)(score%1000)/10)*0.01;
-                    if(record>4.5)record=5;
+                    if(record>4.6)record=5;
                     if(record<0.6)record=0;
-                    gameResult="5초 중에 눈을 마주친 시간은 "+record+"초 입니다."+(int)score;
+                    gameResult=String.format("5초 중에 눈을 마주친 시간은 %.3f초 입니다.",record);
                     //db저장
                     DBHelper2 helper = new DBHelper2(getApplicationContext());
                     SQLiteDatabase db = helper.getWritableDatabase();

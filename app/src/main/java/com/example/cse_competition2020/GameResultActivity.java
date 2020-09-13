@@ -20,23 +20,33 @@ public class GameResultActivity extends AppCompatActivity {
         Intent intent = getIntent(); //각 게임에서 결과값 수신
         user_id = intent.getExtras().getString("id");
         gameResult = intent.getExtras().getString("gameResult");
-        /*result = intent.getExtras().getStringArray("result"); //아이가 말한 것을 저장한 배열
-        //Toast.makeText(getApplicationContext(), result[0] + " " + result[1] + " " + result[2] + " " + result[3] + " " + result[4], Toast.LENGTH_LONG).show();
-        select = intent.getExtras().getStringArray("select"); //랜덤으로 나온 그림에 대한 정답
-        //Toast.makeText(getApplicationContext(), select[0] + " " + select[1] + " " + select[2] + " " + select[3] + " " + select[4], Toast.LENGTH_LONG).show();
 
-        //정답과 비교해서 어느게 맞았고 어느게 틀렷는지 체크
-        for(int i=0; i<5; i++){
-            if(result[i] != null && result[i].equals(select[i])) {
-                yes += select[i];
-                yes += " ";
-                check_num++;
+        if(gameResult.contains("%")){ //내용안에 %, 확률에 대한 정보가 들어가면 gameResult를 바꿈
+            String []array = gameResult.split(" ");
+            gameResult = ""; //초기화
+            for(int i=0; i<array.length; i++){
+                if(i % 2 == 0){
+                    array[i] = array[i].substring(1);
+                    if(array[i].equals("Happy")){
+                        gameResult += "기쁨 : ";
+                    }
+                    else if(array[i].equals("Sad")){
+                        gameResult += "슬픔 : ";
+                    }
+                    else if(array[i].equals("Surprise")){
+                        gameResult += "놀람 : ";
+                    }
+                    else{
+                        gameResult += "화남 : ";
+                    }
+                }
+                else{
+                    array[i] = array[i].substring(1, array[i].length()-3);
+                    gameResult += array[i];
+                    gameResult += "%\n";
+                }
             }
-            else {
-                no += select[i]; //틀릴 경우 0을 저장
-                no += " ";
-            }
-        }*/
+        }
     }
 
     int check=-1;

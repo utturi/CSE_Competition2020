@@ -64,7 +64,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), FaceGameStartActivity.class);
                 intent.putExtra("gameNum",3);
-                intent.putExtra("game3_name", "surprised"); // surprised_game
+                intent.putExtra("game3_name", "surprise"); // surprised_game
                 intent.putExtra("id",user_id);
                 startActivity(intent);
             }

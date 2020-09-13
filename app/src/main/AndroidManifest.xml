@@ -46,6 +46,7 @@
         <activity android:name=".game3.FaceGameSetActivity" />
         <activity android:name=".game3.FaceGameSelectActivity"/>
         <activity android:name=".game3.FaceGameStartActivity"/>
+        <activity android:name=".record.Game3RecordActivity"/>
         <activity android:name=".StartActivity"/>
         <activity
             android:name=".SplashActivity"
