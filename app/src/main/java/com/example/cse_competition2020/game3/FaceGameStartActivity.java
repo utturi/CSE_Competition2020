@@ -46,6 +46,7 @@ public class FaceGameStartActivity extends AppCompatActivity {
     private Executor executor = Executors.newSingleThreadExecutor();
 
     String user_id;
+    String user_name; //이름+년도
     private String game3_name;
     private int count; // 자동으로 사진 찍는데 필요한 시간 변수
     private TimerTask sec;
@@ -58,6 +59,7 @@ public class FaceGameStartActivity extends AppCompatActivity {
         // FaceGameSelectActivity에서 user_id & gameNum & game3_name 이 넘어옴
         Intent intent = getIntent();
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
         game3_name = intent.getExtras().getString("game3_name");
 
         cameraKitView = findViewById(R.id.cameraView);
@@ -124,6 +126,7 @@ public class FaceGameStartActivity extends AppCompatActivity {
                 gameResult = gameResult.substring(1);
                 Intent intent = new Intent(getApplicationContext(), GameResultActivity.class);
                 intent.putExtra("id", user_id);
+                intent.putExtra("user_name", user_name);
                 intent.putExtra("gameResult", gameResult);
                 startActivity(intent);
             }

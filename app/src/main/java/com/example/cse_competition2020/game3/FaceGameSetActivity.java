@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import com.example.cse_competition2020.R;
 
 public class FaceGameSetActivity extends AppCompatActivity {
     String user_id;
+    String user_name; //이름+년도
+    private TextView top_text;
     private Button guideButton, startButton;
     private ImageView back_button;
 
@@ -25,7 +28,9 @@ public class FaceGameSetActivity extends AppCompatActivity {
 
         Intent intent = getIntent(); // GameSelectActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
-
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
         back_button = (ImageView)findViewById(R.id.back_button);
         guideButton = (Button)findViewById(R.id.game3guide_button);
         startButton = (Button)findViewById(R.id.game3start_button);
@@ -62,6 +67,7 @@ public class FaceGameSetActivity extends AppCompatActivity {
                 Intent game3 = new Intent(view.getContext(), FaceGameSelectActivity.class);
                 game3.putExtra("gameNum",3);
                 game3.putExtra("id",user_id);
+                game3.putExtra("user_name",user_name);
                 startActivity(game3);
             }
         });
@@ -72,6 +78,7 @@ public class FaceGameSetActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
         back.putExtra("id", user_id);
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }

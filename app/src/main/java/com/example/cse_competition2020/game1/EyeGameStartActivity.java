@@ -71,6 +71,7 @@ public class EyeGameStartActivity extends AppCompatActivity
     boolean isFail = true, isStart = false;
     int eye_1[], eye_2[];
     String user_id;
+    String user_name;
     String gameResult = "";
     long addr;
     private CameraBridgeViewBase mOpenCvCameraView;
@@ -126,6 +127,7 @@ public class EyeGameStartActivity extends AppCompatActivity
         Intent intent = getIntent();
         addr = intent.getLongExtra("subface", 0); //입력받은 사용자 사진을 띄움
         user_id = intent.getExtras().getString("id"); //user id를 받아서 저장
+        user_name = intent.getExtras().getString("user_name");
         eye_1 = intent.getIntArrayExtra("eye_1");
         eye_2 = intent.getIntArrayExtra("eye_2");
         groundFace = new Mat(addr);
@@ -222,6 +224,7 @@ public class EyeGameStartActivity extends AppCompatActivity
 
                     Intent result = new Intent(getApplicationContext(), GameResultActivity.class);
                     result.putExtra("id", user_id);
+                    result.putExtra("user_name",user_name);
                     result.putExtra("gameResult", gameResult);
                     startActivity(result);
                 }

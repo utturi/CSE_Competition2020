@@ -17,7 +17,7 @@ import com.example.cse_competition2020.record.RecordActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     String user_id;
-    String user_name;
+    String user_name; //이름+년도
     private TextView top_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.select_button: //게임 선택 버튼의 경우 게임 선택 activity로 이동
                 Intent select = new Intent(V.getContext(),GameSelectActivity.class);
                 select.putExtra("id", user_id);
+                select.putExtra("user_name",user_name);
                 startActivity(select);
                 break;
             case R.id.record_button: //기록 선택 버튼의 경우 기록 activity로 이동
                 Intent record = new Intent(V.getContext(), RecordActivity.class);
                 record.putExtra("id", user_id);
+                record.putExtra("user_name", user_name);
                 startActivity(record);
                 break;
         }

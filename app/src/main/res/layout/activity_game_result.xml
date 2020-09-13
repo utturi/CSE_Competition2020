@@ -14,7 +14,30 @@
         android:text="게임 종료"
         android:textColor="@color/primary_text"
         android:textSize="35sp" />
+    <TextView
+        android:id="@+id/gameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/imcre_soojin"
+        android:text="getBetter"
+        android:textColor="@color/primary_text"
+        android:textSize="12sp" />
 
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/gameName"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/font"
+        android:text="홍길동"
+        android:textColor="@color/primary_text"
+        android:textSize="17sp" />
     <ImageView android:id="@+id/game_result_image"
         android:layout_width="match_parent"
         android:layout_height="400dp"

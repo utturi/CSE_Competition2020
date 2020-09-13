@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +26,8 @@ import java.util.Collections;
 public class Game3RecordActivity extends AppCompatActivity {
     public static String user_id;
     public static String new_user_id;
-
+    String user_name; //이름+년도
+    private TextView top_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,9 @@ public class Game3RecordActivity extends AppCompatActivity {
 
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
 
         LineChart lineChart1 = findViewById(R.id.chart3_1); //기쁨
         LineChart lineChart2 = findViewById(R.id.chart3_2); //슬픔
@@ -262,6 +267,7 @@ public class Game3RecordActivity extends AppCompatActivity {
             case R.id.game3_back:
                 Intent select = new Intent(V.getContext(), RecordActivity.class);
                 select.putExtra("id", user_id);
+                select.putExtra("user_name",user_name);
                 startActivity(select);
                 break;
         }
@@ -272,6 +278,7 @@ public class Game3RecordActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), RecordActivity.class);
         back.putExtra("id", user_id);
+        back.putExtra("user_name", user_name);
         startActivity(back);
     }
 }

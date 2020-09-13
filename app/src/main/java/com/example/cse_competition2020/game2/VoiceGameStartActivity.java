@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -40,6 +41,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
     };
 
     String user_id;
+    String user_name; //이름+년도
     String []result = new String[5]; //결과에 대한 값을 Game2ResultActivity에 전달
     String []select = new String[5]; //랜덤으로 선택된 값이 무엇인지 -> Game2ResultActivity에 전달, result배열과 비교할 때 사용
     String yes = ""; //정답 목록
@@ -60,6 +62,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
     private TextView change_answer; //이미지에 대한 정답
     int tmp; //랜덤 값 잠시 저장하는 임시 변수
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
         //Toast.makeText(getApplicationContext(), "This is Game2Activity", Toast.LENGTH_LONG).show();
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
 
         //음성권한을 허용 안했으면 앱을 재실행 해야함.
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
@@ -124,6 +128,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
             //Toast.makeText(Game2Activity.this, "다음을 누르면 다음문제로 넘어갑니다...", Toast.LENGTH_SHORT).show();
         }
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onError(int i) {
             if (count == 6) { //5문제를 진행 후 <다음>버튼을 누르면 2초뒤에 결과창으로 넘어감
@@ -139,6 +144,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
                                 "틀린 문제 : "+no+"\n";
                         last.putExtra("gameResult", gameResult);
                         last.putExtra("id",user_id);
+                        last.putExtra("user_name",user_name);
                         startActivity(last);
                     }
                 }, 1000);
@@ -153,7 +159,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
                 }
                 //업데이트됨 그림, 정답, 진행 된 문제수를 출력
                 change_image.setImageResource(data[index]);
-                change_count.setText(count + "/5");
+                change_count.setText("< " + count + " / 5 >");
                 change_answer.setText(name[index]);
                 select[select_num++] = name[index]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
                 count++;
@@ -195,7 +201,7 @@ public class VoiceGameStartActivity extends AppCompatActivity {
                 }
                 //업데이트됨 그림, 정답, 진행 된 문제수를 출력
                 change_image.setImageResource(data[index]);
-                change_count.setText(count + "/5");
+                change_count.setText("< " + count + " / 5 >");
                 change_answer.setText(name[index]);
                 select[select_num++] = name[index]; //나타나는 그림에 대한 정답을 넣어둠 -> 나중에 정답 체크할때 사용
                 count++;

@@ -17,6 +17,7 @@ import java.util.TimerTask;
 
 public class ChangeActivity extends AppCompatActivity {
     String user_id;
+    String user_name; //이름+년도
     int gameNum;
     String game3_name="";
     //GameSelectActivity set=new GameSelectActivity();
@@ -39,13 +40,11 @@ public class ChangeActivity extends AppCompatActivity {
                     switch(gameNum){ //게임번호별 액티비티 실행
                         case 1:
                             Intent intent = getIntent();
-                            user_id = intent.getExtras().getString("id"); //user id를 받아서 저장
                             long addr = intent.getLongExtra("subface", 0); //입력받은 사용자 사진을 받음
                             int eye_1[] = intent.getIntArrayExtra("eye_1");
                             int eye_2[] = intent.getIntArrayExtra("eye_2");
 
                             gameStart = new Intent(getApplicationContext(), EyeGameStartActivity.class);
-                            gameStart.putExtra("id",user_id);
                             gameStart.putExtra("subface", addr);
                             gameStart.putExtra("eye_1",eye_1);
                             gameStart.putExtra("eye_2",eye_2);
@@ -58,6 +57,7 @@ public class ChangeActivity extends AppCompatActivity {
                             gameStart.putExtra("game3_name", game3_name);
                             break;
                     }
+                    gameStart.putExtra("user_name",user_name);
                     gameStart.putExtra("id",user_id);
                     /*timer.cancel();
                     second.cancel();*/
@@ -84,6 +84,8 @@ public class ChangeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change);
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+
         gameNum = intent.getIntExtra("gameNum",0);
         if(gameNum == 3){
             game3_name = intent.getStringExtra("game3_name");

@@ -4,12 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameResultActivity extends AppCompatActivity {
     String user_id;
+    String user_name; //이름+년도
+    private TextView top_text;
     String gameResult;
 
     @Override
@@ -19,6 +22,10 @@ public class GameResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent(); //각 게임에서 결과값 수신
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
+
         gameResult = intent.getExtras().getString("gameResult");
 
         if(gameResult.contains("%")){ //내용안에 %, 확률에 대한 정보가 들어가면 gameResult를 바꿈
@@ -86,6 +93,7 @@ public class GameResultActivity extends AppCompatActivity {
                     //Toast.makeText(Game2ResultActivity.this,  sql, Toast.LENGTH_SHORT).show();
                 }*/
                 Intent record = new Intent(V.getContext(), GameSelectActivity.class);
+                record.putExtra("user_name",user_name);
                 record.putExtra("id",user_id);
                 startActivity(record);
                 break;
@@ -97,6 +105,7 @@ public class GameResultActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
         back.putExtra("id",user_id);
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }

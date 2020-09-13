@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,8 @@ public class FaceGameSelectActivity extends AppCompatActivity {
     private Button happy, sad, surprised, angry;
     private ImageView back_button;
     String user_id;
+    String user_name; //이름+년도
+    private TextView top_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class FaceGameSelectActivity extends AppCompatActivity {
 
         Intent intent = getIntent(); // FaceGameSetActivity에서 user_id & gameNum 이 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
 
         back_button = (ImageView) findViewById(R.id.back_button);
         happy = (Button)findViewById(R.id.happy_button);
@@ -44,6 +50,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
                 intent.putExtra("gameNum",3); // Game3에 대한 정보
                 intent.putExtra("game3_name", "happy"); // happy_game
                 intent.putExtra("id",user_id);
+                intent.putExtra("user_name",user_name);
                 startActivity(intent);
             }
         });
@@ -55,6 +62,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
                 intent.putExtra("gameNum",3);
                 intent.putExtra("game3_name", "sad"); // sad_game
                 intent.putExtra("id",user_id);
+                intent.putExtra("user_name",user_name);
                 startActivity(intent);
             }
         });
@@ -66,6 +74,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
                 intent.putExtra("gameNum",3);
                 intent.putExtra("game3_name", "surprise"); // surprised_game
                 intent.putExtra("id",user_id);
+                intent.putExtra("user_name",user_name);
                 startActivity(intent);
             }
         });
@@ -77,6 +86,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
                 intent.putExtra("gameNum",3);
                 intent.putExtra("game3_name", "angry"); // angry_game
                 intent.putExtra("id",user_id);
+                intent.putExtra("user_name",user_name);
                 startActivity(intent);
             }
         });
@@ -88,6 +98,7 @@ public class FaceGameSelectActivity extends AppCompatActivity {
         Intent back = new Intent(getApplicationContext(), FaceGameSetActivity.class);
         back.putExtra("id", user_id); //user_id를 다시 main으로 넘겨줌
         back.putExtra("gameNum", 3);
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }

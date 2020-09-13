@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -32,9 +33,12 @@ import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
 
 public class EyeGameSetActivity extends AppCompatActivity {
+
     private static final String TAG = "EyeGameSetActivity";
     public static final int GALLERY = 1;
     String user_id;
+    String user_name; //이름+년도
+    private TextView top_text;
     boolean isReady = false;
     private ImageView image, imageGuide; // 사진 선택 및 사진 등록 메뉴얼
     private Uri uri;
@@ -61,6 +65,9 @@ public class EyeGameSetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eye_game_set);
         Intent intent = getIntent();
         user_id = intent.getExtras().getString("id"); //user id를 받아서 저장
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
         image = (ImageView) findViewById(R.id.imageViewInput);
         imageGuide = (ImageView) findViewById(R.id.imageGuide);
 
@@ -140,6 +147,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 } else { //인텐트에 얼굴과 눈의 정보를 입력하고 다음 엑티비티 실행
                     long subface = subFace.getNativeObjAddr();
                     Intent game1 = new Intent(V.getContext(), ChangeActivity.class);
+                    game1.putExtra("user_name",user_name);
                     game1.putExtra("id", user_id);
                     game1.putExtra("subface", subface);
                     game1.putExtra("eye_1", eye_1);
@@ -283,6 +291,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
         back.putExtra("id", user_id); //user_id를 다시 게임 선택 엑티비티로 넘겨줌
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }

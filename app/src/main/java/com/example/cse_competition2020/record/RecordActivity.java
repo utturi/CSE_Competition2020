@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.ColorUtils;
@@ -28,6 +29,8 @@ import java.util.Collections;
 public class RecordActivity extends AppCompatActivity {
     public static String user_id;
     public static int game;
+    String user_name; //이름+년도
+    private TextView top_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +38,9 @@ public class RecordActivity extends AppCompatActivity {
 
         Intent intent = getIntent(); //StartActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
-
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
 
         LineChart lineChart = (LineChart) findViewById(R.id.chart1); //2번 또박또박 말하기 게임
         LineChart lineChart1 = findViewById(R.id.chart0); //1번 눈 마주치기 게임
@@ -160,11 +165,13 @@ public class RecordActivity extends AppCompatActivity {
             case R.id.back_button:
                 Intent select = new Intent(V.getContext(),MainActivity.class);
                 select.putExtra("id", user_id);
+                select.putExtra("user_name",user_name);
                 startActivity(select);
                 break;
             case R.id.game3_record_button: //게임 3에 대한 결과 엑티비티로 넘어감
                 Intent game3_record = new Intent(V.getContext(),Game3RecordActivity.class);
                 game3_record.putExtra("id", user_id);
+                game3_record.putExtra("user_name",user_name);
                 startActivity(game3_record);
                 break;
         }
@@ -175,6 +182,7 @@ public class RecordActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), MainActivity.class);
         back.putExtra("id", user_id);
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }

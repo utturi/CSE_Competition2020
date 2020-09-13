@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,12 +15,17 @@ import com.example.cse_competition2020.R;
 
 public class VoiceGameSetActivity extends AppCompatActivity {
     String user_id;
+    String user_name; //이름+년도
+    private TextView top_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voice_game_set);
         Intent intent = getIntent(); //GameSelectActivity에서 id가 넘어옴
         user_id = intent.getExtras().getString("id");
+        user_name = intent.getExtras().getString("user_name");
+        top_text = (TextView)findViewById(R.id.user_name);
+        top_text.setText(user_name);
         //intent.getStringExtra("id");
         //Toast.makeText(getApplicationContext(), "This is VoiceGameActivity", Toast.LENGTH_LONG).show();
     }
@@ -48,6 +54,7 @@ public class VoiceGameSetActivity extends AppCompatActivity {
                 Intent game2 = new Intent(V.getContext(), ChangeActivity.class);
                 game2.putExtra("gameNum",2);
                 game2.putExtra("id",user_id);
+                game2.putExtra("user_name",user_name);
                 startActivity(game2); //changeActivity로 넘어감, 3->2->1로 변화는 과정 출력하는 엑티비티
                 break;
         }
@@ -58,6 +65,7 @@ public class VoiceGameSetActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent back = new Intent(getApplicationContext(), GameSelectActivity.class);
         back.putExtra("id", user_id);
+        back.putExtra("user_name",user_name);
         startActivity(back);
     }
 }
