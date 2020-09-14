@@ -86,9 +86,9 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(EyeGameSetActivity.this);
                 dlg.setTitle("사진 등록 방법"); // 제목
                 // 메시지(설명란)
-                dlg.setMessage("\n o 아이가 눈을 마주쳐야 하는 대상을 갤러리에서\n    고르세요\n" +
-                        " o 사진 속 인물은 무조건 1명이어야 합니다\n" +
-                        " o 인물의 얼굴이 정면으로 나온 사진을 추천드립니다\n" +
+                dlg.setMessage("\n o 아이가 눈을 마주쳐야 하는 대상을 갤러리에서\n    고르세요\n\n" +
+                        " o 사진 속 인물은 무조건 1명이어야 합니다\n\n" +
+                        " o 인물의 얼굴이 정면으로 나온 사진을 추천드립니다\n\n" +
                         " o 인물의 눈이 모두 떠져있어야 합니다\n\n" +
                         " * 게임 시작 버튼을 누른 후 사진이 적절하지 않으면 다시\n    선택하셔야 합니다");
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
@@ -125,9 +125,10 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(EyeGameSetActivity.this);
                 dlg.setTitle("게임 설명"); //제목
                 //메시지(설명란)
-                dlg.setMessage("\n o 본 게임은 5초간 사진 속 상대방의 눈을 마주치는\n    게임입니다\n" +
-                        " o 오른쪽 상단의 느낌표 버튼을 눌러 사진 등록 방법을\n    볼 수 있습니다\n" +
-                        " o 5초간 사진 속 상대방의 눈을 마주치는 시간을\n    측정해서 알려드립니다\n" +
+                dlg.setMessage("\n o 본 게임은 5초간 사진 속 상대방의 눈을 마주치는\n    게임입니다\n\n" +
+                        " o 오른쪽 상단의 느낌표 버튼을 눌러 사진 등록 방법을\n    볼 수 있습니다\n\n" +
+                        " o 5초간 사진 속 상대방의 눈을 마주치는 시간을\n    측정해서 알려드립니다\n\n" +
+                        " o 핸드폰을 아이의 얼굴이 잘 나올 수 있도록 세로로\n    고정시켜주세요\n\n" +
                         " o 아이가 집중을 잘할 수 있도록 적절한 사진을 선택해\n    주세요");
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
@@ -139,7 +140,7 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 break;
             case R.id.game1start_button: //게임1의 <게임 시작> 버튼에 대한 이벤트 처리
                 if (checkImage() == -1) {
-                    Toast.makeText(getApplicationContext(), "사진이 적절하지 않습니다!\n사진을 다시 선택해 주세요!", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "사진이 적절하지 않습니다!\n사진을 다시 선택해 주세요!", Toast.LENGTH_LONG).show();
                     break;
                 } else if (checkImage() == -2) {
                     Toast.makeText(getApplicationContext(), "사진이 선택되지 않았습니다!\n     사진을 선택해 주세요!", Toast.LENGTH_LONG).show();
@@ -246,8 +247,14 @@ public class EyeGameSetActivity extends AppCompatActivity {
                 eye_2[2] = eyes.toList().get(1).width;
                 eye_2[3] = eyes.toList().get(1).height;
                 return 1;
-            } else return -1;
-        } else return -1;
+            } else {
+                Toast.makeText(getApplicationContext(), "눈 개수가 올바르지 않습니다!\n 사진을 다시 선택해 주세요!", Toast.LENGTH_SHORT).show();
+                return -1;
+            }
+        } else{
+            Toast.makeText(getApplicationContext(), "얼굴 개수가 올바르지 않습니다!\n  사진을 다시 선택해 주세요!", Toast.LENGTH_SHORT).show();
+            return -1;
+        }
     }
 
     // 갤러리에서 가져온 사진을 절대경로로 바꾸는 메소드

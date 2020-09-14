@@ -74,6 +74,7 @@ public class EyeGameStartActivity extends AppCompatActivity
     String user_name;
     String gameResult = "";
     long addr;
+    Scalar line_color=new Scalar(255,0,0,0.8);
     private CameraBridgeViewBase mOpenCvCameraView;
     private Point left = null, right = null;
     private Rect first_eye = new Rect(), second_eye = new Rect();
@@ -150,10 +151,12 @@ public class EyeGameStartActivity extends AppCompatActivity
     }
 
     public void btnClick(View v) { //시작 버튼이 눌린 경우
-        Button startbtn = (Button) findViewById(R.id.startBtn);
-        isStart = true;
-        startbtn.setVisibility(v.GONE);
-        count5sec();
+        if(line_color.val[0]!=255) {
+            Button startbtn = (Button) findViewById(R.id.startBtn);
+            isStart = true;
+            startbtn.setVisibility(v.GONE);
+            count5sec();
+        }
     }
 
     private void drawEye(Scalar rect_color) { //입력받은 사진에 눈을 표시
@@ -209,7 +212,7 @@ public class EyeGameStartActivity extends AppCompatActivity
                         }
                     }, 0);
                     //게임 결과 넘기고 gameresult activity 실행
-                    double record = (int) score / 1000 + ((int) (score % 1000) / 10) * 0.001;
+                    double record = (int) score / 1000 + (score % 1000) * 0.001;
                     if (record > 4.6) record = 5;
                     if (record < 0.6) record = 0;
                     gameResult = String.format("5초 중에 눈을 마주친 시간은 %.3f초 입니다.", record);
@@ -224,7 +227,7 @@ public class EyeGameStartActivity extends AppCompatActivity
 
                     Intent result = new Intent(getApplicationContext(), GameResultActivity.class);
                     result.putExtra("id", user_id);
-                    result.putExtra("user_name",user_name);
+                    result.putExtra("user_name", user_name);
                     result.putExtra("gameResult", gameResult);
                     startActivity(result);
                 }
@@ -273,7 +276,7 @@ public class EyeGameStartActivity extends AppCompatActivity
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
-        Scalar line_color, rect_color = new Scalar(255, 0, 0, 0.6);
+        Scalar rect_color = new Scalar(255, 0, 0, 0.6);
         Log.d("온 카메라 프레임", "  진입!!!!");
         matInput = inputFrame.rgba();
         resize(groundFace, groundFace, input_size);

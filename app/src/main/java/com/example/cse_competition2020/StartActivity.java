@@ -56,17 +56,24 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         int CameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
         int VoicePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO);
-        if (CameraPermission == PackageManager.PERMISSION_GRANTED && VoicePermission == PackageManager.PERMISSION_GRANTED)
+        int ReadPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int WritePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        if (CameraPermission == PackageManager.PERMISSION_GRANTED
+                && VoicePermission == PackageManager.PERMISSION_GRANTED
+                && ReadPermission == PackageManager.PERMISSION_GRANTED
+                && WritePermission == PackageManager.PERMISSION_GRANTED)
             ;
         else
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO}, 0);
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) { //권한 체크 응답 함수
         if (grantResults.length > 0) { //권한 허가
-            if (grantResults[0] == PackageManager.PERMISSION_DENIED || grantResults[1] == PackageManager.PERMISSION_DENIED) {
+            if (grantResults[0] == PackageManager.PERMISSION_DENIED || grantResults[1] == PackageManager.PERMISSION_DENIED
+                    || grantResults[2] == PackageManager.PERMISSION_DENIED || grantResults[3] == PackageManager.PERMISSION_DENIED) {
                 finish();
             }
         }

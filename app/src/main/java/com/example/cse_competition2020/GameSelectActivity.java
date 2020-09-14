@@ -32,6 +32,7 @@ public class GameSelectActivity extends AppCompatActivity implements View.OnClic
         top_text = (TextView)findViewById(R.id.user_name);
         top_text.setText(user_name);
     }
+
     @Override
     public void onClick(View V){
         switch(V.getId()){

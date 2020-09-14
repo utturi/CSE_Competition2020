@@ -40,9 +40,9 @@ public class VoiceGameSetActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(VoiceGameSetActivity.this);
                 dlg.setTitle("게임 설명"); //제목
                 //메시지(설명란)
-                dlg.setMessage("총 5문제로 진행되고, 아이가 얼마나 정확하게 발음 하는지를 확인 할 수 있습니다." +
-                        "\n사진이 보이면 아이가 정답을 (최대한 5초 이내로)말하도록 옆에서 설명해주세요!\n" +
-                        "화면은 자동으로 다음으로 넘어갑니다!");
+                dlg.setMessage("\n\n o 본 게임은 주어진 단어를 정확하게 읽는 게임입니다" +
+                        "\n\n o 총 5문제로 진행되고, 한 문제당 3초의 시간이\n    주어집니다" +
+                        "\n\n o 화면은 자동으로 다음 문제로 넘어갑니다");
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

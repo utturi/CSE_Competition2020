@@ -60,7 +60,7 @@ public class Game3RecordActivity extends AppCompatActivity {
             }
         }
 
-        LineDataSet dataset1 = new LineDataSet(entries1, ": 확률(%)");
+        LineDataSet dataset1 = new LineDataSet(entries1, ": 비율(%)");
         cursor1 = db1.rawQuery(sql1, null);
         ArrayList<String> labels1 = new ArrayList<String>();
         if (cursor1.getCount() > 0) {
@@ -115,7 +115,7 @@ public class Game3RecordActivity extends AppCompatActivity {
                 }
             }
         }
-        LineDataSet dataset2 = new LineDataSet(entries2, ": 확률(%)");
+        LineDataSet dataset2 = new LineDataSet(entries2, ": 비율(%)");
         cursor2 = db2.rawQuery(sql2, null);
         ArrayList<String> labels2 = new ArrayList<String>();
         if (cursor2.getCount() > 0) {
@@ -169,7 +169,7 @@ public class Game3RecordActivity extends AppCompatActivity {
                 }
             }
         }
-        LineDataSet dataset3 = new LineDataSet(entries3, ": 확률(%)");
+        LineDataSet dataset3 = new LineDataSet(entries3, ": 비율(%)");
         cursor3 = db3.rawQuery(sql3, null);
         ArrayList<String> labels3 = new ArrayList<String>();
         if (cursor3.getCount() > 0) {
@@ -223,7 +223,7 @@ public class Game3RecordActivity extends AppCompatActivity {
                 }
             }
         }
-        LineDataSet dataset4 = new LineDataSet(entries4, ": 확률(%)");
+        LineDataSet dataset4 = new LineDataSet(entries4, ": 비율(%)");
         cursor4 = db4.rawQuery(sql4, null);
         ArrayList<String> labels4 = new ArrayList<String>();
         if (cursor4.getCount() > 0) {

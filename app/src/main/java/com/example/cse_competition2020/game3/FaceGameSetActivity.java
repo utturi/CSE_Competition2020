@@ -49,7 +49,10 @@ public class FaceGameSetActivity extends AppCompatActivity {
                 AlertDialog.Builder dlg = new AlertDialog.Builder(FaceGameSetActivity.this);
                 dlg.setTitle("게임 설명"); //제목
                 //메시지(설명란)
-                dlg.setMessage("");
+                dlg.setMessage("\n o 본 게임은 사용자가 선택한 표정을 따라하는\n    게임입니다" +
+                        "\n\n o 보호자는 아이가 학습할 표정을 선택해 주세요" +
+                        "\n\n o 게임을 시작하면 약 3초후에 사진이 찍힙니다" +
+                        "\n\n o '찰칵' 소리가 난 후에 움직여 주세요");
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
